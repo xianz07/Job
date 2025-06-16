@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弦的求职机会分析</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        
+        :root {
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+            --text-light: #555555;
+            --primary-color: #4A90E2;
+            --green: #2ecc71;
+            --orange: #f39c12;
+            --red: #e74c3c;
+            --border-color: #e0e0e0;
+            --raw-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 15px;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-weight: 700;
+            font-size: 1.8em;
+            margin: 0;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            padding: 20px;
+            margin-bottom: 20px;
+            border-left: 6px solid;
+            overflow: hidden;
+        }
+
+        .card-recommended { border-color: var(--green); }
+        .card-potential { border-color: var(--orange); }
+        .card-rejected { border-color: var(--red); }
+        .card-summary { border-color: var(--primary-color); }
+        .card-warning { 
+            border-color: var(--red);
+            background-color: #fff6f6;
+        }
+
+        .job-title {
+            font-size: 1.2em;
+            font-weight: 700;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer; /* Makes it clear it's clickable */
+        }
+        
+        .job-title-text {
+            flex-grow: 1;
+        }
+
+        .job-title::after {
+            content: '⊕';
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 1.2em;
+            transition: transform 0.3s ease-out;
+            margin-left: 10px;
+        }
+        
+        .job-title.active::after {
+            content: '⊖';
+            transform: rotate(180deg);
+        }
+
+        .content-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+        }
+
+        .job-details {
+            padding-top: 15px; /* Space between title and details */
+        }
+
+        .job-details ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: var(--text-light);
+            font-size: 0.95em;
+        }
+
+        .job-details li {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+
+        .job-details li span {
+            margin-right: 10px;
+            font-size: 1.2em;
+            color: var(--primary-color);
+        }
+        
+        .job-details strong {
+            color: var(--text-color);
+            font-weight: 500;
+        }
+
+        .raw-info {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: var(--raw-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .raw-info h4 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 1em;
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        .raw-info pre {
+            margin: 0;
+            white-space: pre-wrap; /* Ensures text wraps */
+            word-wrap: break-word;
+            font-size: 0.9em;
+            color: var(--text-light);
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.8em;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>弦的求职机会分析</h1>
+        </header>
+
+        <h2 class="section-title">⭐ 强烈推荐【首选目标】</h2>
+
+        <div class="card card-recommended collapsible">
+            <h3 class="job-title"><span class="job-title-text">普工 / 保安 (人事经理付女士)</span></h3>
+            <div class="content-wrapper">
+                <div class="job-details">
+                    <ul>
+                        <li><span>💰</span><strong>薪资:</strong> 普工20-24元/时，保安150-160元/天，月结。</li>
+                        <li><span>📍</span><strong>地点:</strong> 渝北区金渝地铁站附近。</li>
+                        <li><span>🤝</span><strong>福利:</strong> <strong>包吃包住</strong>。</li>
+                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--green);">已确认17岁符合要求</strong>。</li>
+                    </ul>
+                </div>
+                <div class="raw-info">
+                    <h4>原始招聘信息</h4>
+                    <pre>
+【一】工作范围:重庆主厂区
+【二】招聘岗位:
+1、厂区门岗保安、监控室保安，负责厂区安检，检查是否有管制刀具、违禁物品等
+2、两班倒普工，大部分坐着上班
+【三】薪资待遇:
+1、保安150-160/天，转正后买六险一金，200/天
+2、普工20-24/小时，综合月收入5500-6500以上，上六休一每月20号发放工资。
+3、工作时间:白班，晚班，工作期轮换休息
+4、宿舍4~6人间
+【四】福利待遇:包吃包住，水电费平摊，宿舍4-6人/间，6-8人/间，独立卫生间热水器
+【五】招聘要求:
+1、年满16-48岁以上，学历不限
+2、身体健康，持本人有效身份证
+                    </pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card card-recommended collapsible">
+            <h3 class="job-title"><span class="job-title-text">厂区保安 (铁锤妹妹👊)</span></h3>
+            <div class="content-wrapper">
+                <div class="job-details">
+                    <ul>
+                        <li><span>💰</span><strong>薪资:</strong> <strong>200元/天</strong>，月结。</li>
+                        <li><span>📍</span><strong>地点:</strong> 渝北区碧津地铁站面试。</li>
+                        <li><span>🤝</span><strong>福利:</strong> <strong>包吃包住</strong>，月休4天。</li>
+                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--green);">已确认17岁可以做</strong>。</li>
+                    </ul>
+                </div>
+                 <div class="raw-info">
+                    <h4>原始招聘信息</h4>
+                    <pre>
+厂区坐班巡逻保安200元/天工作时间 8-8 中间休息两个小时 总工作时间10个小时 周末单休  2班倒   节假日可以选择放假或者加班三倍薪资 工资:每月5号准时发，直接打到银行卡里面。住宿:4-6人间的标准宿舍，有独立卫生间和24小时热水 包中午晚上两餐 包住宿水电费平摊 目前这个岗位是需要住宿的,招长期，接受短期， 可以接受不
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-recommended collapsible">
+            <h3 class="job-title"><span class="job-title-text">传音科技 (学生工)</span></h3>
+            <div class="content-wrapper">
+                <div class="job-details">
+                    <ul>
+                        <li><span>💰</span><strong>薪资:</strong> 综合月薪4400-4900元，月结。</li>
+                        <li><span>📍</span><strong>地点:</strong> 渝北区玉峰山镇。</li>
+                        <li><span>🤝</span><strong>福利:</strong> <strong>住宿条件好 (4人间上床下桌)</strong>，有300元餐补。</li>
+                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--green);">明确招16-20岁学生工</strong>。</li>
+                    </ul>
+                </div>
+                <div class="raw-info">
+                    <h4>原始招聘信息</h4>
+                    <pre>
+🆘传音科技招聘🆘（学生工/小时工同时招聘）
+
+一：学生工，16-20岁 ，男女不限 ，企业直签，底薪制
+
+1⃣️基本工资2330底薪+加班工资（平时加班1.5倍20.08/小时，周末加班2倍26.78/小时。+餐补 (300）+全勤奖（100）+夜班补贴（15一晚），月综合工资4400-4900元左右
+2⃣️实行刷卡吃饭，餐补每月300元。住宿4人间，每月20号发上个月工资。
+
+每月20号发放上个月薪资
+                    </pre>
+                </div>
+            </div>
+        </div>
+        
+        <h2 class="section-title">👍 备选推荐【可以考虑】</h2>
+
+        <div class="card card-potential collapsible">
+            <h3 class="job-title"><span class="job-title-text">北碚暑假工企业</span></h3>
+            <div class="content-wrapper">
+                <div class="job-details">
+                    <ul>
+                        <li><span>💰</span><strong>薪资:</strong> 16元/小时，综合4000-5000元，可预支。</li>
+                        <li><span>📍</span><strong>地点:</strong> 北碚。</li>
+                        <li><span>🤝</span><strong>福利:</strong> <strong>0元入职</strong>，可带手机。</li>
+                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--orange);">明确招16-35岁</strong>。</li>
+                    </ul>
+                </div>
+                 <div class="raw-info">
+                    <h4>原始招聘信息</h4>
+                    <pre>
+[啤酒][啤酒]坐班站班+手上活+日薪168/天[啤酒][啤酒]
+[玫瑰]可0元入职+分钱不掏那种
+[福]车间可带手机
+[炸弹]可收无身份证原件的人员
+[烟花]15天后每周可预支500元/周
+
+男女不限：16—35岁
+
+[玫瑰]薪资待遇：
+工期要求做到8月20号以后
+月结学生工：
+14+2=16/H＝160/天（含2元满期补贴），试用期7天，试用期内离职无工资，特别说明满期补贴做满工期按16/H发，做不满工期的按14/H发，两班倒，综合薪资：4000—5000/月
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="card card-potential collapsible">
+            <h3 class="job-title"><span class="job-title-text">西永京东方-晶远</span></h3>
+            <div class="content-wrapper">
+                <div class="job-details">
+                    <ul>
+                        <li><span>💰</span><strong>薪资:</strong> 综合4500-5000元。</li>
+                        <li><span>📍</span><strong>地点:</strong> 西永。</li>
+                        <li><span>🤝</span><strong>福利:</strong> 4人间住宿，大厂有保障。</li>
+                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--orange);">明确招16-38岁</strong>。</li>
+                    </ul>
+                </div>
+                <div class="raw-info">
+                    <h4>原始招聘信息</h4>
+                    <pre>
+西永京东方-晶远（周日）
+
+🔺招聘要求：男女不限，16-38岁。当天面试合格，体检，分寝室，重庆新欧医院体检（自费88元）体检尽量空腹
+
+🔺薪资待遇：底薪2330+加班工资=综合薪资4500-5000元，住宿4人间。表现优异可留下来长期发展
+
+🌈🌈工作内容：
+1.负责不良品识别，推车输送；
+2.负责不良品外观擦拭，修后检验；
+3.无尘车间，需穿戴静电服或无尘服。非流水线车间，上岗前会有 专门培训员进行培训，简单操作易上手。
+                    </pre>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card card-potential collapsible">
+            <h3 class="job-title"><span class="job-title-text">璧山日结电子厂</span></h3>
+            <div class="content-wrapper">
+                <div class="job-details">
+                    <ul>
+                        <li><span>💰</span><strong>薪资:</strong> <strong>日结</strong> (白140/天, 夜150/天)。</li>
+                        <li><span>📍</span><strong>地点:</strong> 璧山。</li>
+                        <li><span>🤝</span><strong>福利:</strong> 包吃两餐，不穿无尘服。</li>
+                         <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--orange);">明确招16-38岁</strong>。</li>
+                    </ul>
+                </div>
+                <div class="raw-info">
+                    <h4>原始招聘信息</h4>
+                    <pre>
+费用更新
+6.16璧山日结临时工电子厂 
+白班/夜班大量要人
+不体检+不要押金+不穿无尘服
+最低做1天以上（下班1小时内发放完工资）@所有人
+
+工资日结：白班140/天，夜班150/天（点对点8-8），包吃两餐/提供男生临时住宿10元/天，宿舍押金50，工作（贴标签）流水线，坐到上班
+
+男女不限，男生16-38岁，女生16-44岁。查案底不查纹身，女生长指甲不行，不要四大家族
+
+必须带上身份证原件，不能穿拖鞋凉鞋裙子短裤
+                    </pre>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">🚨 高度警惕【风险预警】</h2>
+
+        <div class="card card-warning">
+            <h3 class="job-title" style="cursor: default;">办电话卡充业绩“兼职”</h3>
+             <div class="content-wrapper" style="max-height: 500px;"> <!-- Always expanded -->
+                <div class="job-details">
+                    <ul>
+                        <li><span>🚫</span><strong>风险:</strong> <strong>极高！</strong>群友指出此类兼职是为诈骗团伙提供电话卡。</li>
+                        <li><span>⚖️</span><strong>后果:</strong> 可能导致个人信息泄露，甚至卷入法律纠纷。</li>
+                        <li><span>💡</span><strong>结论:</strong> <strong>绝对不要尝试！</strong></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <h2 class="section-title">📋 总结与建议</h2>
+        <div class="card card-summary">
+            <div class="final-advice" style="padding: 10px 0;">
+                <ol>
+                    <li><strong>优先面试：</strong> 立即联系 **人事经理付女士**、**铁锤妹妹👊** 和 **中介-AN00-劳大 (传音)**，这三个是当前最靠谱、待遇最明确的选择。</li>
+                    <li><strong>准备备选：</strong> 如果首选不顺利，再考虑北碚、西永、璧山等地的暑假工或日结岗位。</li>
+                    <li><strong>放弃无效咨询：</strong> 不要再问普通保安岗，大部分都需要成年。</li>
+                    <li><strong>安全第一：</strong> 记住朋友被骗的教训，任何需要 **提前交钱** 的工作都是骗局。正规收费（如住宿押金）也应在入职后从工资里扣除。</li>
+                </ol>
+            </div>
+        </div>
+
+        <footer>
+            <p>祝你求职顺利，找到心仪的工作！</p>
+        </footer>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const collapsibles = document.querySelectorAll('.collapsible');
+
+            collapsibles.forEach(card => {
+                const title = card.querySelector('.job-title');
+                const content = card.querySelector('.content-wrapper');
+
+                title.addEventListener('click', () => {
+                    title.classList.toggle('active');
+                    
+                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                        content.style.maxHeight = '0px';
+                    } else {
+                        // Set max-height to its natural content height plus a buffer
+                        content.style.maxHeight = content.scrollHeight + 40 + 'px';
+                    }
+                });
+            });
+
+            // Auto-expand the first recommended card for better initial view
+            const firstCard = document.querySelector('.card-recommended.collapsible');
+            if(firstCard) {
+                firstCard.querySelector('.job-title').click();
+            }
+        });
+    </script>
+
+</body>
+</html>
