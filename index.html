@@ -2,403 +2,438 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>弦的求职机会分析</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>弦的求职机会</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
-        
         :root {
-            --bg-color: #f4f7f9;
-            --card-bg: #ffffff;
-            --text-color: #333333;
-            --text-light: #555555;
-            --primary-color: #4A90E2;
-            --green: #2ecc71;
-            --orange: #f39c12;
-            --red: #e74c3c;
-            --border-color: #e0e0e0;
-            --raw-bg: #f8f9fa;
+            --bg-color: #f4f6f9; --card-bg: #ffffff; --text-primary: #1a1a1a;
+            --text-secondary: #5c5c5c; --text-light: #999; --primary-color: #00b3b4;
+            --salary-color: #ff5722; --green: #00c29a; --orange: #ff9800;
+            --gray: #b0b0b0; --red: #f44336; --border-color: #e9e9e9;
         }
-
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            font-family: 'Noto Sans SC', sans-serif;
-            background-color: var(--bg-color);
-            margin: 0;
-            padding: 15px;
-            color: var(--text-color);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+            background-color: var(--bg-color); margin: 0; color: var(--text-primary);
+            -webkit-font-smoothing: antialiased;
         }
+        .header { padding: 20px 16px; }
+        .header h1 { font-size: 26px; font-weight: 700; margin: 0 0 5px 0; }
+        .header p { font-size: 14px; color: var(--text-secondary); margin: 0; }
+        .job-grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 12px; padding: 0 16px 16px 16px;
+        }
+        .job-tile {
+            background-color: var(--card-bg); border-radius: 8px;
+            padding: 12px; cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-top: 4px solid; transition: transform 0.2s ease;
+        }
+        .job-tile:active { transform: scale(0.97); }
+        .tile-title { font-size: 15px; font-weight: 700; margin: 0 0 4px 0;
+            overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+        }
+        .tile-salary { font-size: 14px; font-weight: 700; color: var(--salary-color); margin-bottom: 8px; }
+        .tile-tags { display: flex; flex-wrap: wrap; gap: 4px; }
+        .tile-tag { background-color: #f0f0f0; color: #666; font-size: 10px;
+            padding: 2px 6px; border-radius: 4px;
+        }
+        .tier-high { border-color: var(--green); }
+        .tier-medium { border-color: var(--orange); }
+        .tier-low { border-color: var(--gray); }
+        .tier-rejected { border-color: var(--red); opacity: 0.7; }
+        .tier-risk { border-color: var(--red); background-color: #fff5f5; }
 
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.5); display: none;
+            align-items: center; justify-content: center; z-index: 1000;
         }
-
-        header {
-            text-align: center;
-            margin-bottom: 25px;
+        .modal-content {
+            background-color: var(--bg-color); border-radius: 12px;
+            width: 90%; max-width: 400px; max-height: 85vh;
+            display: flex; flex-direction: column;
+            animation: slide-up 0.3s ease-out;
         }
-
-        header h1 {
-            color: var(--primary-color);
-            font-weight: 700;
-            font-size: 1.8em;
-            margin: 0;
+        .modal-header {
+            padding: 16px; border-bottom: 1px solid var(--border-color);
+            position: relative; background: var(--card-bg);
+            border-top-left-radius: 12px; border-top-right-radius: 12px;
         }
-
-        .card {
-            background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            padding: 20px;
-            margin-bottom: 20px;
-            border-left: 6px solid;
-            overflow: hidden;
+        .modal-title { font-size: 18px; font-weight: 700; margin: 0; }
+        .modal-salary { font-size: 20px; font-weight: bold; color: var(--salary-color); margin-top: 5px;}
+        .modal-close {
+            position: absolute; top: 12px; right: 12px;
+            font-size: 24px; color: #aaa; cursor: pointer;
+            width: 28px; height: 28px; line-height: 28px; text-align: center;
         }
-
-        .card-recommended { border-color: var(--green); }
-        .card-potential { border-color: var(--orange); }
-        .card-rejected { border-color: var(--red); }
-        .card-summary { border-color: var(--primary-color); }
-        .card-warning { 
-            border-color: var(--red);
-            background-color: #fff6f6;
-        }
-
-        .job-title {
-            font-size: 1.2em;
-            font-weight: 700;
-            margin: 0;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer; /* Makes it clear it's clickable */
-        }
-        
-        .job-title-text {
-            flex-grow: 1;
-        }
-
-        .job-title::after {
-            content: '⊕';
-            color: var(--primary-color);
-            font-weight: bold;
-            font-size: 1.2em;
-            transition: transform 0.3s ease-out;
-            margin-left: 10px;
-        }
-        
-        .job-title.active::after {
-            content: '⊖';
-            transform: rotate(180deg);
-        }
-
-        .content-wrapper {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-in-out;
-        }
-
-        .job-details {
-            padding-top: 15px; /* Space between title and details */
-        }
-
-        .job-details ul {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            color: var(--text-light);
-            font-size: 0.95em;
-        }
-
-        .job-details li {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 8px;
-        }
-
-        .job-details li span {
-            margin-right: 10px;
-            font-size: 1.2em;
-            color: var(--primary-color);
-        }
-        
-        .job-details strong {
-            color: var(--text-color);
-            font-weight: 500;
-        }
-
-        .raw-info {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: var(--raw-bg);
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-        
-        .raw-info h4 {
-            margin-top: 0;
-            margin-bottom: 10px;
-            font-size: 1em;
-            color: var(--primary-color);
-            font-weight: 700;
-        }
-
-        .raw-info pre {
-            margin: 0;
-            white-space: pre-wrap; /* Ensures text wraps */
-            word-wrap: break-word;
-            font-size: 0.9em;
-            color: var(--text-light);
-            font-family: 'Noto Sans SC', sans-serif;
-        }
-        
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 0.8em;
-            color: #999;
-        }
+        .modal-body { padding: 16px; overflow-y: auto; }
+        .detail-section { margin-bottom: 16px; background: var(--card-bg); padding: 12px; border-radius: 8px;}
+        .detail-section h4 { font-size: 15px; margin: 0 0 10px 0; color: var(--primary-color); }
+        .detail-section ul { list-style: none; padding: 0; margin: 0; }
+        .detail-section li { margin-bottom: 6px; font-size: 14px; color: var(--text-secondary); }
+        .detail-section li strong { color: var(--text-primary); }
+        #modal-analysis { font-size: 14px; font-weight: 500; }
+        #modal-analysis.high { color: var(--green); }
+        #modal-analysis.medium { color: var(--orange); }
+        #modal-analysis.low { color: var(--gray); }
+        #modal-analysis.rejected, #modal-analysis.risk { color: var(--red); }
+        #modal-raw-info { margin: 0; white-space: pre-wrap; word-wrap: break-word; font-size: 13px; color: #666; font-family: inherit; line-height: 1.7; }
+        @keyframes slide-up { from { transform: translateY(30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>弦的求职机会分析</h1>
-        </header>
-
-        <h2 class="section-title">⭐ 强烈推荐【首选目标】</h2>
-
-        <div class="card card-recommended collapsible">
-            <h3 class="job-title"><span class="job-title-text">普工 / 保安 (人事经理付女士)</span></h3>
-            <div class="content-wrapper">
-                <div class="job-details">
-                    <ul>
-                        <li><span>💰</span><strong>薪资:</strong> 普工20-24元/时，保安150-160元/天，月结。</li>
-                        <li><span>📍</span><strong>地点:</strong> 渝北区金渝地铁站附近。</li>
-                        <li><span>🤝</span><strong>福利:</strong> <strong>包吃包住</strong>。</li>
-                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--green);">已确认17岁符合要求</strong>。</li>
-                    </ul>
-                </div>
-                <div class="raw-info">
-                    <h4>原始招聘信息</h4>
-                    <pre>
-【一】工作范围:重庆主厂区
-【二】招聘岗位:
-1、厂区门岗保安、监控室保安，负责厂区安检，检查是否有管制刀具、违禁物品等
-2、两班倒普工，大部分坐着上班
-【三】薪资待遇:
-1、保安150-160/天，转正后买六险一金，200/天
-2、普工20-24/小时，综合月收入5500-6500以上，上六休一每月20号发放工资。
-3、工作时间:白班，晚班，工作期轮换休息
-4、宿舍4~6人间
-【四】福利待遇:包吃包住，水电费平摊，宿舍4-6人/间，6-8人/间，独立卫生间热水器
-【五】招聘要求:
-1、年满16-48岁以上，学历不限
-2、身体健康，持本人有效身份证
-                    </pre>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card card-recommended collapsible">
-            <h3 class="job-title"><span class="job-title-text">厂区保安 (铁锤妹妹👊)</span></h3>
-            <div class="content-wrapper">
-                <div class="job-details">
-                    <ul>
-                        <li><span>💰</span><strong>薪资:</strong> <strong>200元/天</strong>，月结。</li>
-                        <li><span>📍</span><strong>地点:</strong> 渝北区碧津地铁站面试。</li>
-                        <li><span>🤝</span><strong>福利:</strong> <strong>包吃包住</strong>，月休4天。</li>
-                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--green);">已确认17岁可以做</strong>。</li>
-                    </ul>
-                </div>
-                 <div class="raw-info">
-                    <h4>原始招聘信息</h4>
-                    <pre>
-厂区坐班巡逻保安200元/天工作时间 8-8 中间休息两个小时 总工作时间10个小时 周末单休  2班倒   节假日可以选择放假或者加班三倍薪资 工资:每月5号准时发，直接打到银行卡里面。住宿:4-6人间的标准宿舍，有独立卫生间和24小时热水 包中午晚上两餐 包住宿水电费平摊 目前这个岗位是需要住宿的,招长期，接受短期， 可以接受不
-                    </pre>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-recommended collapsible">
-            <h3 class="job-title"><span class="job-title-text">传音科技 (学生工)</span></h3>
-            <div class="content-wrapper">
-                <div class="job-details">
-                    <ul>
-                        <li><span>💰</span><strong>薪资:</strong> 综合月薪4400-4900元，月结。</li>
-                        <li><span>📍</span><strong>地点:</strong> 渝北区玉峰山镇。</li>
-                        <li><span>🤝</span><strong>福利:</strong> <strong>住宿条件好 (4人间上床下桌)</strong>，有300元餐补。</li>
-                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--green);">明确招16-20岁学生工</strong>。</li>
-                    </ul>
-                </div>
-                <div class="raw-info">
-                    <h4>原始招聘信息</h4>
-                    <pre>
-🆘传音科技招聘🆘（学生工/小时工同时招聘）
-
-一：学生工，16-20岁 ，男女不限 ，企业直签，底薪制
-
-1⃣️基本工资2330底薪+加班工资（平时加班1.5倍20.08/小时，周末加班2倍26.78/小时。+餐补 (300）+全勤奖（100）+夜班补贴（15一晚），月综合工资4400-4900元左右
-2⃣️实行刷卡吃饭，餐补每月300元。住宿4人间，每月20号发上个月工资。
-
-每月20号发放上个月薪资
-                    </pre>
-                </div>
-            </div>
-        </div>
-        
-        <h2 class="section-title">👍 备选推荐【可以考虑】</h2>
-
-        <div class="card card-potential collapsible">
-            <h3 class="job-title"><span class="job-title-text">北碚暑假工企业</span></h3>
-            <div class="content-wrapper">
-                <div class="job-details">
-                    <ul>
-                        <li><span>💰</span><strong>薪资:</strong> 16元/小时，综合4000-5000元，可预支。</li>
-                        <li><span>📍</span><strong>地点:</strong> 北碚。</li>
-                        <li><span>🤝</span><strong>福利:</strong> <strong>0元入职</strong>，可带手机。</li>
-                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--orange);">明确招16-35岁</strong>。</li>
-                    </ul>
-                </div>
-                 <div class="raw-info">
-                    <h4>原始招聘信息</h4>
-                    <pre>
-[啤酒][啤酒]坐班站班+手上活+日薪168/天[啤酒][啤酒]
-[玫瑰]可0元入职+分钱不掏那种
-[福]车间可带手机
-[炸弹]可收无身份证原件的人员
-[烟花]15天后每周可预支500元/周
-
-男女不限：16—35岁
-
-[玫瑰]薪资待遇：
-工期要求做到8月20号以后
-月结学生工：
-14+2=16/H＝160/天（含2元满期补贴），试用期7天，试用期内离职无工资，特别说明满期补贴做满工期按16/H发，做不满工期的按14/H发，两班倒，综合薪资：4000—5000/月
-                    </pre>
-                </div>
-            </div>
-        </div>
-
-        <div class="card card-potential collapsible">
-            <h3 class="job-title"><span class="job-title-text">西永京东方-晶远</span></h3>
-            <div class="content-wrapper">
-                <div class="job-details">
-                    <ul>
-                        <li><span>💰</span><strong>薪资:</strong> 综合4500-5000元。</li>
-                        <li><span>📍</span><strong>地点:</strong> 西永。</li>
-                        <li><span>🤝</span><strong>福利:</strong> 4人间住宿，大厂有保障。</li>
-                        <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--orange);">明确招16-38岁</strong>。</li>
-                    </ul>
-                </div>
-                <div class="raw-info">
-                    <h4>原始招聘信息</h4>
-                    <pre>
-西永京东方-晶远（周日）
-
-🔺招聘要求：男女不限，16-38岁。当天面试合格，体检，分寝室，重庆新欧医院体检（自费88元）体检尽量空腹
-
-🔺薪资待遇：底薪2330+加班工资=综合薪资4500-5000元，住宿4人间。表现优异可留下来长期发展
-
-🌈🌈工作内容：
-1.负责不良品识别，推车输送；
-2.负责不良品外观擦拭，修后检验；
-3.无尘车间，需穿戴静电服或无尘服。非流水线车间，上岗前会有 专门培训员进行培训，简单操作易上手。
-                    </pre>
-                </div>
-            </div>
-        </div>
-        
-        <div class="card card-potential collapsible">
-            <h3 class="job-title"><span class="job-title-text">璧山日结电子厂</span></h3>
-            <div class="content-wrapper">
-                <div class="job-details">
-                    <ul>
-                        <li><span>💰</span><strong>薪资:</strong> <strong>日结</strong> (白140/天, 夜150/天)。</li>
-                        <li><span>📍</span><strong>地点:</strong> 璧山。</li>
-                        <li><span>🤝</span><strong>福利:</strong> 包吃两餐，不穿无尘服。</li>
-                         <li><span>✅</span><strong>状态:</strong> <strong style="color:var(--orange);">明确招16-38岁</strong>。</li>
-                    </ul>
-                </div>
-                <div class="raw-info">
-                    <h4>原始招聘信息</h4>
-                    <pre>
-费用更新
-6.16璧山日结临时工电子厂 
-白班/夜班大量要人
-不体检+不要押金+不穿无尘服
-最低做1天以上（下班1小时内发放完工资）@所有人
-
-工资日结：白班140/天，夜班150/天（点对点8-8），包吃两餐/提供男生临时住宿10元/天，宿舍押金50，工作（贴标签）流水线，坐到上班
-
-男女不限，男生16-38岁，女生16-44岁。查案底不查纹身，女生长指甲不行，不要四大家族
-
-必须带上身份证原件，不能穿拖鞋凉鞋裙子短裤
-                    </pre>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">🚨 高度警惕【风险预警】</h2>
-
-        <div class="card card-warning">
-            <h3 class="job-title" style="cursor: default;">办电话卡充业绩“兼职”</h3>
-             <div class="content-wrapper" style="max-height: 500px;"> <!-- Always expanded -->
-                <div class="job-details">
-                    <ul>
-                        <li><span>🚫</span><strong>风险:</strong> <strong>极高！</strong>群友指出此类兼职是为诈骗团伙提供电话卡。</li>
-                        <li><span>⚖️</span><strong>后果:</strong> 可能导致个人信息泄露，甚至卷入法律纠纷。</li>
-                        <li><span>💡</span><strong>结论:</strong> <strong>绝对不要尝试！</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <h2 class="section-title">📋 总结与建议</h2>
-        <div class="card card-summary">
-            <div class="final-advice" style="padding: 10px 0;">
-                <ol>
-                    <li><strong>优先面试：</strong> 立即联系 **人事经理付女士**、**铁锤妹妹👊** 和 **中介-AN00-劳大 (传音)**，这三个是当前最靠谱、待遇最明确的选择。</li>
-                    <li><strong>准备备选：</strong> 如果首选不顺利，再考虑北碚、西永、璧山等地的暑假工或日结岗位。</li>
-                    <li><strong>放弃无效咨询：</strong> 不要再问普通保安岗，大部分都需要成年。</li>
-                    <li><strong>安全第一：</strong> 记住朋友被骗的教训，任何需要 **提前交钱** 的工作都是骗局。正规收费（如住宿押金）也应在入职后从工资里扣除。</li>
-                </ol>
-            </div>
-        </div>
-
-        <footer>
-            <p>祝你求职顺利，找到心仪的工作！</p>
-        </footer>
+    <div class="header">
+        <h1>求职机会</h1>
+        <p>为你筛选的所有岗位，按成功率排序</p>
     </div>
-    
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const collapsibles = document.querySelectorAll('.collapsible');
 
-            collapsibles.forEach(card => {
-                const title = card.querySelector('.job-title');
-                const content = card.querySelector('.content-wrapper');
+    <div class="job-grid">
+        <!-- TIER 1: 高成功率 -->
+        <div class="job-tile tier-high" data-id="1">
+            <h4 class="tile-title">普工 / 保安</h4>
+            <div class="tile-salary">20-24元/时</div>
+            <div class="tile-tags"><div class="tile-tag">包吃住</div><div class="tile-tag">年龄符合</div></div>
+        </div>
+        <div class="job-tile tier-high" data-id="2">
+            <h4 class="tile-title">厂区保安</h4>
+            <div class="tile-salary">200元/天</div>
+            <div class="tile-tags"><div class="tile-tag">包吃住</div><div class="tile-tag">高薪</div></div>
+        </div>
+        <div class="job-tile tier-high" data-id="3">
+            <h4 class="tile-title">传音科技(学生工)</h4>
+            <div class="tile-salary">4.4k-4.9k/月</div>
+            <div class="tile-tags"><div class="tile-tag">住宿好</div><div class="tile-tag">大厂</div></div>
+        </div>
+        <div class="job-tile tier-high" data-id="4">
+            <h4 class="tile-title">北碚暑假工</h4>
+            <div class="tile-salary">16元/小时</div>
+            <div class="tile-tags"><div class="tile-tag">0元入职</div><div class="tile-tag">可预支</div></div>
+        </div>
 
-                title.addEventListener('click', () => {
-                    title.classList.toggle('active');
-                    
-                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
-                        content.style.maxHeight = '0px';
-                    } else {
-                        // Set max-height to its natural content height plus a buffer
-                        content.style.maxHeight = content.scrollHeight + 40 + 'px';
-                    }
-                });
-            });
+        <!-- TIER 2: 中等成功率 -->
+        <div class="job-tile tier-medium" data-id="5">
+            <h4 class="tile-title">西永京东方-晶远</h4>
+            <div class="tile-salary">4.5k-5k/月</div>
+            <div class="tile-tags"><div class="tile-tag">大厂</div><div class="tile-tag">4人间</div></div>
+        </div>
+        <div class="job-tile tier-medium" data-id="6">
+            <h4 class="tile-title">璧山日结电子厂</h4>
+            <div class="tile-salary">140-150元/天</div>
+            <div class="tile-tags"><div class="tile-tag">日结</div><div class="tile-tag">不体检</div></div>
+        </div>
+        <div class="job-tile tier-medium" data-id="7">
+            <h4 class="tile-title">游轮服务员</h4>
+            <div class="tile-salary">4k-5k/月</div>
+            <div class="tile-tags"><div class="tile-tag">包吃住</div><div class="tile-tag">带薪休假</div></div>
+        </div>
+        <div class="job-tile tier-medium" data-id="8">
+            <h4 class="tile-title">北碚蔡家日结</h4>
+            <div class="tile-salary">17元/小时</div>
+            <div class="tile-tags"><div class="tile-tag">日结</div><div class="tile-tag">学生可</div></div>
+        </div>
 
-            // Auto-expand the first recommended card for better initial view
-            const firstCard = document.querySelector('.card-recommended.collapsible');
-            if(firstCard) {
-                firstCard.querySelector('.job-title').click();
-            }
-        });
-    </script>
+        <!-- TIER 3: 低成功率 (需要确认) -->
+        <div class="job-tile tier-low" data-id="9">
+            <h4 class="tile-title">厂区安检(待确认)</h4>
+            <div class="tile-salary">150-200元/天</div>
+            <div class="tile-tags"><div class="tile-tag">包吃住</div><div class="tile-tag">可日结</div></div>
+        </div>
+        <div class="job-tile tier-low" data-id="10">
+            <h4 class="tile-title">空港日结临时工</h4>
+            <div class="tile-salary">14元/小时</div>
+            <div class="tile-tags"><div class="tile-tag">日结</div><div class="tile-tag">年龄17起</div></div>
+        </div>
+        <div class="job-tile tier-low" data-id="11">
+            <h4 class="tile-title">合川电子厂</h4>
+            <div class="tile-salary">15元/小时</div>
+            <div class="tile-tags"><div class="tile-tag">包吃</div><div class="tile-tag">女生为主</div></div>
+        </div>
+        <div class="job-tile tier-low" data-id="12">
+            <h4 class="tile-title">传音配套-科派</h4>
+            <div class="tile-salary">16元/小时</div>
+            <div class="tile-tags"><div class="tile-tag">不体检</div><div class="tile-tag">女生为主</div></div>
+        </div>
 
+        <!-- TIER 4: 已拒绝或不符 -->
+        <div class="job-tile tier-rejected" data-id="13">
+            <h4 class="tile-title">保安岗(多数)</h4>
+            <div class="tile-salary">需18/20岁</div>
+            <div class="tile-tags"><div class="tile-tag">明确拒绝</div></div>
+        </div>
+        <div class="job-tile tier-rejected" data-id="14">
+            <h4 class="tile-title">电影院检票员</h4>
+            <div class="tile-salary">需18岁</div>
+            <div class="tile-tags"><div class="tile-tag">明确拒绝</div></div>
+        </div>
+        <div class="job-tile tier-rejected" data-id="15">
+            <h4 class="tile-title">工厂普工(多数)</h4>
+            <div class="tile-salary">需18/22岁</div>
+            <div class="tile-tags"><div class="tile-tag">年龄不符</div></div>
+        </div>
+        <div class="job-tile tier-rejected" data-id="16">
+            <h4 class="tile-title">技能岗(赛力斯等)</h4>
+            <div class="tile-salary">需经验/学历</div>
+            <div class="tile-tags"><div class="tile-tag">条件不符</div></div>
+        </div>
+        
+        <!-- TIER 5: 风险岗位 -->
+        <div class="job-tile tier-risk" data-id="17">
+            <h4 class="tile-title">营业厅充业绩</h4>
+            <div class="tile-salary">高风险</div>
+            <div class="tile-tags"><div class="tile-tag">切勿尝试</div></div>
+        </div>
+    </div>
+
+    <!-- Modal Structure -->
+    <div class="modal-overlay" id="job-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="modal-title">岗位名称</h3>
+                <div class="modal-salary" id="modal-salary">薪资待遇</div>
+                <div class="modal-close" id="modal-close">×</div>
+            </div>
+            <div class="modal-body">
+                <div class="detail-section">
+                    <h4>岗位速览</h4>
+                    <ul id="modal-summary"></ul>
+                </div>
+                <div class="detail-section">
+                    <h4>我的分析</h4>
+                    <p id="modal-analysis"></p>
+                </div>
+                <div class="detail-section">
+                    <h4>原始信息</h4>
+                    <pre id="modal-raw-info"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+const jobData = {
+    '1': {
+        title: '普工 / 保安',
+        salary: '20-24元/时',
+        summary: `
+            <li><strong>工作地点:</strong> 渝北区金渝地铁站附近</li>
+            <li><strong>福利待遇:</strong> 包吃包住，4-6人间</li>
+            <li><strong>年龄要求:</strong> 16-48岁</li>
+            <li><strong>来源:</strong> 中介-人事经理付女士</li>`,
+        analysis: '【成功率极高】对方已明确回复17岁符合要求，并且包吃住，是当前最优先的选择，建议立即联系面试。',
+        analysisClass: 'high',
+        raw: `【一】工作范围:重庆主厂区\n【二】招聘岗位:\n1、厂区门岗保安、监控室保安...\n2、两班倒普工，大部分坐着上班\n【三】薪资待遇:\n1、保安150-160/天...\n2、普工20-24/小时，综合月收入5500-6500以上...\n【五】招聘要求:\n1、年满16-48岁以上，学历不限...`
+    },
+    '2': {
+        title: '厂区保安',
+        salary: '200元/天',
+        summary: `
+            <li><strong>工作地点:</strong> 渝北区双凤桥产业园</li>
+            <li><strong>福利待遇:</strong> 包吃包住，月休四天</li>
+            <li><strong>年龄要求:</strong> 接受17岁</li>
+            <li><strong>来源:</strong> 中介-铁锤妹妹👊</li>`,
+        analysis: '【成功率极高】薪资待遇非常不错，对方已接受你的年龄，是另一个绝佳选择。明确包吃住解决了核心问题。',
+        analysisClass: 'high',
+        raw: `厂区坐班巡逻保安200元/天，工作时间 8-8 中间休息两个小时...工资:每月5号准时发...住宿:4-6人间的标准宿舍...包中午晚上两餐 包住宿水电费平摊...`
+    },
+    '3': {
+        title: '传音科技(学生工)',
+        salary: '4400-4900/月',
+        summary: `
+            <li><strong>工作地点:</strong> 渝北区玉峰山镇</li>
+            <li><strong>福利待遇:</strong> 4人间上床下桌，餐补300元</li>
+            <li><strong>年龄要求:</strong> 16-20岁</li>
+            <li><strong>来源:</strong> 中介-AN00-劳大</li>`,
+        analysis: '【成功率高】专门的学生工通道，年龄完全符合。大厂背景，住宿条件好，非常靠谱。中介说20号开始面试。',
+        analysisClass: 'high',
+        raw: `🆘传音科技招聘🆘（学生工/小时工同时招聘）\n一：学生工，16-20岁 ，男女不限 ，企业直签，底薪制\n1⃣️基本工资2330底薪+加班工资（平时加班1.5倍20.08/小时...）+餐补(300）+全勤奖（100）+夜班补贴（15一晚），月综合工资4400-4900元左右...`
+    },
+    '4': {
+        title: '北碚暑假工',
+        salary: '16元/小时',
+        summary: `
+            <li><strong>工作地点:</strong> 北碚</li>
+            <li><strong>福利待遇:</strong> 0元入职，可预支，可带手机</li>
+            <li><strong>年龄要求:</strong> 16-35岁</li>
+            <li><strong>来源:</strong> 重庆厂区直招发单群6群</li>`,
+        analysis: '【成功率高】明确的暑假工招聘，年龄要求清晰。0元入职和可预支对前期资金紧张的你很友好。',
+        analysisClass: 'high',
+        raw: `[啤酒]坐班站班+手上活+日薪168/天[啤酒]\n[玫瑰]可0元入职+分钱不掏那种...\n男女不限：16—35岁\n月结学生工：14+2=16/H＝160/天（含2元满期补贴），试用期7天...综合薪资：4000—5000/月。`
+    },
+    '5': {
+        title: '西永京东方-晶远',
+        salary: '4500-5000/月',
+        summary: `
+            <li><strong>工作地点:</strong> 西永</li>
+            <li><strong>福利待遇:</strong> 4人间住宿，大厂背景</li>
+            <li><strong>年龄要求:</strong> 16-38岁</li>
+            <li><strong>来源:</strong> 重庆厂区直招发单群6群</li>`,
+        analysis: '【成功率中等】年龄符合，但需穿无尘服，且要自费体检88元。大厂工作相对稳定，可以作为备选。',
+        analysisClass: 'medium',
+        raw: `西永京东方-晶远（周日）\n🔺招聘要求：男女不限，16-38岁。当天面试合格，体检...重庆新欧医院体检（自费88元）\n🔺薪资待遇：底薪2330+加班工资=综合薪资4500-5000元，住宿4人间...\n🌈🌈工作内容：...需穿戴静电服或无尘服。`
+    },
+    '6': {
+        title: '璧山日结电子厂',
+        salary: '140-150元/天',
+        summary: `
+            <li><strong>工作地点:</strong> 璧山</li>
+            <li><strong>福利待遇:</strong> 日结，包吃，不穿无尘服</li>
+            <li><strong>年龄要求:</strong> 男生16-38岁</li>
+            <li><strong>来源:</strong> 中介-Hyh_</li>`,
+        analysis: '【成功率中等】日结灵活，年龄符合，不穿无尘服是优点。适合想快速拿到钱或短期过渡。',
+        analysisClass: 'medium',
+        raw: `6.16璧山日结临时工电子厂\n白班/夜班大量要人\n不体检+不要押金+不穿无尘服\n最低做1天以上（下班1小时内发放完工资）\n工资日结：白班140/天，夜班150/天...包吃两餐/提供男生临时住宿10元/天...\n男女不限，男生16-38岁...`
+    },
+    '7': {
+        title: '游轮服务员',
+        salary: '4000-5000/月',
+        summary: `
+            <li><strong>工作地点:</strong> 朝天门码头(随船)</li>
+            <li><strong>福利待遇:</strong> 包吃住，带薪休假，五险</li>
+            <li><strong>年龄要求:</strong> 16-35岁</li>
+            <li><strong>来源:</strong> 临时-长寿↹重庆 群聊</li>`,
+        analysis: '【成功率中等】年龄符合，待遇独特。但工作性质特殊（随船工作），需要考虑是否能适应长期在船上的生活。',
+        analysisClass: 'medium',
+        raw: `招聘岗位: 游轮服务员(前台，客房，餐厅，酒吧)\n综合工资4000-5000\n二、任职要求:\n16-35岁，身体健康，形象气质佳...\n三、岗位优势:\n1、工作轻松...\n2、吃住免费...`
+    },
+    '8': {
+        title: '北碚蔡家日结',
+        salary: '17元/小时',
+        summary: `
+            <li><strong>工作地点:</strong> 北碚蔡家</li>
+            <li><strong>福利待遇:</strong> 日结(压一天)</li>
+            <li><strong>年龄要求:</strong> "学生也可以"</li>
+            <li><strong>来源:</strong> 中介-独角兽🦄</li>`,
+        analysis: '【成功率中等】明确提到“学生也可以”，这是一个积极信号。日结压一天风险较低，值得一问。',
+        analysisClass: 'medium',
+        raw: `北碚蔡家日结压一天17一小时，不体检，低费用入职，学生也可以，打杂，包装去不去`
+    },
+    '9': {
+        title: '厂区安检(待确认)',
+        salary: '150-200元/天',
+        summary: `
+            <li><strong>工作地点:</strong> 未知</li>
+            <li><strong>福利待遇:</strong> 包吃住，可日结</li>
+            <li><strong>年龄要求:</strong> 16-40岁</li>
+            <li><strong>来源:</strong> 人事孙老师</li>`,
+        analysis: '【成功率低】对方表示要“先查一下17岁可不可以”，之后未回复。需要你主动跟进，但不要抱太大希望。',
+        analysisClass: 'low',
+        raw: `岗位职责: 负责厂区安检...\n年龄限制16-40岁以内，包吃包住...\n工资待遇: 150-200/天-可日结`
+    },
+    '10': {
+        title: '空港日结临时工',
+        salary: '14元/小时',
+        summary: `
+            <li><strong>工作地点:</strong> 空港</li>
+            <li><strong>福利待遇:</strong> 日结，包工作餐</li>
+            <li><strong>年龄要求:</strong> 17–50岁</li>
+            <li><strong>来源:</strong> 招聘群</li>`,
+        analysis: '【成功率低】年龄正好在最低线上，但薪资不高，工作内容是电商打包，可能比较辛苦。可以作为保底选择。',
+        analysisClass: 'low',
+        raw: `6.16空港 日结 日结临时工\n薪资待遇14元/小时\n工作内容: 电商打包 装箱 秤重 分拣...\n男女不限17–50岁。下班次日结算工资...\n上班地址：空港万纬冷链物流园2号门`
+    },
+    '11': {
+        title: '合川电子厂',
+        salary: '15元/小时',
+        summary: `
+            <li><strong>工作地点:</strong> 合川</li>
+            <li><strong>福利待遇:</strong> 包吃，月休4天</li>
+            <li><strong>年龄要求:</strong> 16-45岁 (女生为主)</li>
+            <li><strong>来源:</strong> 招聘群</li>`,
+        analysis: '【成功率低】虽然年龄符合，但明确“女生为主”，男生岗位可能很少或没有。',
+        analysisClass: 'low',
+        raw: `重庆合川神秘电子厂...\n招聘年龄16-45岁（女生为主）\n...13元+2/小时...\n月工时300-330左右，月工资4000`
+    },
+    '12': {
+        title: '传音配套-科派',
+        salary: '16元/小时',
+        summary: `
+            <li><strong>工作地点:</strong> 未知</li>
+            <li><strong>福利待遇:</strong> 不体检，可带手机</li>
+            <li><strong>年龄要求:</strong> 16-40岁 (限女)</li>
+            <li><strong>来源:</strong> 招聘群</li>`,
+        analysis: '【成功率极低】年龄符合，但明确“#限女”，基本没希望。',
+        analysisClass: 'low',
+        raw: `6.16[庆祝][庆祝]传音配套 科派不体检\n------招聘要求------\n16-40 岁。#限女。学生工优先！可带手机！可听歌！\n------薪资待遇------\n15+1=16（含餐补）3 个月后 17 元/小时...`
+    },
+    '13': {
+        title: '保安岗(多数)',
+        salary: '需18/20岁以上',
+        summary: `<li><strong>工作地点:</strong> 各区</li><li><strong>来源:</strong> 多个中介及群聊</li>`,
+        analysis: '【已拒绝】绝大多数保安岗位都明确要求成年，这是行业规定，无需再浪费时间询问。',
+        analysisClass: 'rejected',
+        raw: `来自 "中介-娅姐姐", "中介-AN00-劳大", "重庆保安信息更新3️⃣不要吹牛" 群聊等多个信息源均明确表示保安岗需要18岁或20岁以上。`
+    },
+    '14': {
+        title: '电影院检票员',
+        salary: '需18岁以上',
+        summary: `<li><strong>工作地点:</strong> 未知</li><li><strong>来源:</strong> 招聘科 吕主管</li>`,
+        analysis: '【已拒绝】对方已直接回复“１７不行 需要１８”，此路不通。',
+        analysisClass: 'rejected',
+        raw: `弦: 17岁的话这个可以吗 9月成年\n中介-招聘科____吕主管: １７不行 需要１８ １７ 只能进厂了`
+    },
+    '15': {
+        title: '工厂普工(多数)',
+        salary: '需18/22岁以上',
+        summary: `<li><strong>工作地点:</strong> 各区</li><li><strong>来源:</strong> 招聘群</li>`,
+        analysis: '【不符合】大部分非学生工通道的普通工厂招聘，最低年龄都要求18岁甚至22岁。',
+        analysisClass: 'rejected',
+        raw: `万盛耀皮、中联重科、京东方照明、赛力斯物料部等多个普工岗，年龄要求均为18岁、20岁、22岁或23岁起。`
+    },
+    '16': {
+        title: '技能岗(赛力斯等)',
+        salary: '需经验/学历',
+        summary: `<li><strong>工作地点:</strong> 各区</li><li><strong>来源:</strong> 招聘群</li>`,
+        analysis: '【不符合】如焊接、数控、维修等技能岗，不仅要求成年，还需要相关经验、证书或大专以上学历。',
+        analysisClass: 'rejected',
+        raw: `赛力斯三厂技能岗: 设备维修工、涂装补漆工...\n要求：限男性20-38岁...中专学历及以上...`
+    },
+    '17': {
+        title: '营业厅充业绩',
+        salary: '高风险',
+        summary: `<li><strong>工作地点:</strong> 未知</li><li><strong>来源:</strong> 中介-Hyh_</li>`,
+        analysis: '【高风险-切勿尝试！】这种办电话卡的兼职，在群聊中已被多人指出是为诈骗团伙提供电话卡，存在巨大的个人信息泄露和法律风险！',
+        analysisClass: 'risk',
+        raw: `兼职日结：210-300天[庆祝][庆祝]\n[红包]1-3小时可完成✅\n营业厅充业绩兼职薅羊毛...\n电话充量兼职，百分百绿色...`
+    }
+};
+
+document.addEventListener('DOMContentLoaded', function () {
+    const grid = document.querySelector('.job-grid');
+    const modal = document.getElementById('job-modal');
+    const modalClose = document.getElementById('modal-close');
+
+    grid.addEventListener('click', function (e) {
+        const tile = e.target.closest('.job-tile');
+        if (!tile) return;
+        
+        const jobId = tile.dataset.id;
+        const data = jobData[jobId];
+        
+        if (data) {
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-salary').textContent = data.salary;
+            document.getElementById('modal-summary').innerHTML = data.summary;
+            const analysisEl = document.getElementById('modal-analysis');
+            analysisEl.textContent = data.analysis;
+            analysisEl.className = data.analysisClass;
+            document.getElementById('modal-raw-info').textContent = data.raw;
+            modal.style.display = 'flex';
+        }
+    });
+
+    modalClose.addEventListener('click', () => {
+        modal.style.display = 'none';
+    });
+
+    modal.addEventListener('click', function(e) {
+        if (e.target === this) {
+            modal.style.display = 'none';
+        }
+    });
+});
+</script>
 </body>
 </html>
