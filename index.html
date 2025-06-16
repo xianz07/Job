@@ -50,7 +50,8 @@
         }
         @media (max-width: 600px) {
             .job-grid {
-                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
             }
         }
         .job-card {
@@ -87,6 +88,7 @@
             flex-wrap: wrap;
             gap: 5px;
             font-size: 0.8em;
+            margin-top: auto;
         }
         .job-card .tag {
             background-color: var(--tag-bg);
@@ -96,17 +98,16 @@
         }
         .ribbon {
             position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 110px;
+            top: 10px;
+            right: -30px;
+            width: 120px;
             height: 25px;
             background-color: var(--success-high);
             color: white;
             font-size: 0.8em;
             text-align: center;
             line-height: 25px;
-            transform: rotate(-45deg);
-            transform-origin: 0 0;
+            transform: rotate(45deg);
             box-shadow: 0 2px 4px rgba(0,0,0,0.2);
         }
         .ribbon.medium { background-color: var(--success-medium); }
@@ -176,6 +177,7 @@
         }
         .analysis li {
             padding: 5px 0;
+            line-height: 1.6;
         }
         .analysis .pro::before {
             content: '✅ ';
@@ -196,100 +198,100 @@
             padding: 5px 10px;
             border-radius: 5px;
             margin-top: 10px;
+            font-size: 0.9em;
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>重庆求职看板</h1>
-        <p>根据你的聊天记录深度分析与整理，祝你找到心仪的工作！</p>
+        <h1>重庆求职看板 (弦の专属版)</h1>
+        <p>已整合所有聊天记录，并按优先级排序，帮你理清思路，精准出击！</p>
     </div>
 
     <div class="job-grid">
-        <!-- Job cards will be inserted here by the logic -->
         
         <!-- CARD 1: 传音科技 学生工 (高优先级) -->
         <div class="job-card" onclick="openModal('modal-1')">
-            <div class="ribbon">高成功率</div>
+            <div class="ribbon">全力攻坚</div>
             <div class="title">传音科技 学生工</div>
             <div class="salary">月综合4400-4900</div>
             <div class="tags">
                 <div class="tag">渝北</div>
                 <div class="tag">16-20岁</div>
                 <div class="tag">宿舍超好</div>
-                <div class="tag">电子厂</div>
+                <div class="tag">企业直签</div>
             </div>
         </div>
 
         <!-- CARD 2: 合川神秘电子厂 (高优先级) -->
         <div class="job-card" onclick="openModal('modal-2')">
-            <div class="ribbon">高成功率</div>
+            <div class="ribbon">可靠备选</div>
             <div class="title">合川神秘电子厂 (学生/暑假工)</div>
             <div class="salary">月4000元</div>
             <div class="tags">
                 <div class="tag">合川</div>
                 <div class="tag">16-45岁</div>
                 <div class="tag">坐班</div>
-                <div class="tag">不查案底</div>
+                <div class="tag">女生为主</div>
             </div>
         </div>
         
         <!-- CARD 3: 潼南景裕电子 (高优先级) -->
         <div class="job-card" onclick="openModal('modal-3')">
-            <div class="ribbon">高成功率</div>
+            <div class="ribbon">可靠备选</div>
             <div class="title">潼南景裕电子 (暑假工)</div>
             <div class="salary">月4200-4500</div>
             <div class="tags">
                 <div class="tag">潼南</div>
                 <div class="tag">16-22岁</div>
                 <div class="tag">质检</div>
-                <div class="tag">不穿无尘服</div>
+                <div class="tag">非流水线</div>
             </div>
         </div>
 
         <!-- CARD 4: 灿恒光电 (高优先级) -->
         <div class="job-card" onclick="openModal('modal-4')">
-            <div class="ribbon">高成功率</div>
+            <div class="ribbon">可靠备选</div>
             <div class="title">灿恒光电</div>
             <div class="salary">16-17/小时</div>
             <div class="tags">
                 <div class="tag">未知</div>
                 <div class="tag">16-45岁</div>
                 <div class="tag">包吃包住</div>
-                <div class="tag">电子厂</div>
+                <div class="tag">要求严</div>
             </div>
         </div>
         
         <!-- CARD 5: 渝北保安 (中等优先级) -->
         <div class="job-card" onclick="openModal('modal-5')">
-            <div class="ribbon medium">中成功率</div>
+            <div class="ribbon medium">谨慎求证</div>
             <div class="title">渝北厂区保安</div>
             <div class="salary">20/小时 (5-6k)</div>
             <div class="tags">
                 <div class="tag">渝北</div>
                 <div class="tag">17岁可</div>
                 <div class="tag">包吃包住</div>
-                <div class="tag">保安</div>
+                <div class="tag">高概率假</div>
             </div>
         </div>
 
         <!-- CARD 6: 北碚暑假工企业 (中等优先级) -->
         <div class="job-card" onclick="openModal('modal-6')">
-            <div class="ribbon medium">中成功率</div>
+            <div class="ribbon medium">中等靠谱</div>
             <div class="title">北碚暑假工企业</div>
             <div class="salary">160/天</div>
             <div class="tags">
                 <div class="tag">北碚</div>
                 <div class="tag">16-35岁</div>
-                <div class="tag">可带手机</div>
                 <div class="tag">0元入职</div>
+                <div class="tag">薪资有坑</div>
             </div>
         </div>
         
         <!-- CARD 7: 璧山日结临时工 (中等优先级) -->
         <div class="job-card" onclick="openModal('modal-7')">
-            <div class="ribbon medium">中成功率</div>
+            <div class="ribbon medium">临时过渡</div>
             <div class="title">璧山日结临时工</div>
             <div class="salary">白140/夜150</div>
             <div class="tags">
@@ -302,7 +304,7 @@
 
         <!-- CARD 8: 游轮服务员 (中等优先级) -->
         <div class="job-card" onclick="openModal('modal-8')">
-            <div class="ribbon medium">中成功率</div>
+            <div class="ribbon medium">待遇存疑</div>
             <div class="title">游轮服务员</div>
             <div class="salary">4000-5000/月</div>
             <div class="tags">
@@ -315,20 +317,20 @@
         
         <!-- CARD 9: 厂区门岗保安 (低优先级) -->
         <div class="job-card" onclick="openModal('modal-9')">
-            <div class="ribbon low">低成功率</div>
+            <div class="ribbon scam">高度警惕</div>
             <div class="title">厂区门岗/普工</div>
             <div class="salary">150-160/天</div>
             <div class="tags">
-                <div class="tag">主厂区</div>
+                <div class="tag">金渝站</div>
                 <div class="tag">16-48岁</div>
                 <div class="tag">包吃住</div>
-                <div class="tag">保安/普工</div>
+                <div class="tag">引流骗局</div>
             </div>
         </div>
 
         <!-- CARD 10: 传音配套科派 (低优先级-限女) -->
         <div class="job-card" onclick="openModal('modal-10')">
-            <div class="ribbon low">低成功率</div>
+            <div class="ribbon low">与你无关</div>
             <div class="title">传音配套-科派</div>
             <div class="salary">16-17/小时</div>
             <div class="tags">
@@ -341,14 +343,14 @@
         
         <!-- CARD 11: 京东方-晶远 (低优先级) -->
         <div class="job-card" onclick="openModal('modal-11')">
-            <div class="ribbon low">低成功率</div>
+            <div class="ribbon low">已停招</div>
             <div class="title">京东方-晶远</div>
             <div class="salary">月4500-5000</div>
             <div class="tags">
                 <div class="tag">西永</div>
                 <div class="tag">16-38岁</div>
                 <div class="tag">无尘服</div>
-                <div class="tag">电子厂</div>
+                <div class="tag">信息过时</div>
             </div>
         </div>
         
@@ -357,11 +359,10 @@
             <div class="ribbon scam">高度警惕</div>
             <div class="title">厂区坐班巡逻保安</div>
             <div class="salary">200/天</div>
-            <div class="tags">
-                <div class="tag">渝北</div>
+            <div class.tags">
+                <div class="tag">碧津站</div>
                 <div class="tag">不限</div>
-                <div class="tag">面试地址可疑</div>
-                <div class="tag">可能是骗局</div>
+                <div class="tag">引流骗局</div>
             </div>
         </div>
         
@@ -380,95 +381,75 @@
 
         <!-- CARD 14: 空港电商打包 (低优先级) -->
         <div class="job-card" onclick="openModal('modal-14')">
-            <div class="ribbon low">低成功率</div>
+            <div class="ribbon low">仅供参考</div>
             <div class="title">空港电商打包</div>
             <div class="salary">14/小时</div>
             <div class="tags">
                 <div class="tag">空港</div>
                 <div class="tag">17-50岁</div>
                 <div class="tag">日结</div>
-                <div class="tag">临时工</div>
+                <div class="tag">不包住</div>
             </div>
         </div>
 
         <!-- CARD 15: 正川日结 (低优先级) -->
         <div class="job-card" onclick="openModal('modal-15')">
-            <div class="ribbon low">低成功率</div>
+            <div class="ribbon low">仅供参考</div>
             <div class="title">正川日结</div>
             <div class="salary">160/天</div>
             <div class="tags">
                 <div class="tag">未知</div>
                 <div class="tag">16-25岁</div>
-                <div class="tag">不体检</div>
-                <div class="tag">质检员</div>
+                <div class="tag">压5天</div>
+                <div class="tag">作息混乱</div>
             </div>
         </div>
         
         <!-- CARD 16: 营业厅充业绩 (风险极高) -->
         <div class="job-card" onclick="openModal('modal-16')">
-            <div class="ribbon scam">风险极高</div>
+            <div class="ribbon scam">绝对别碰</div>
             <div class="title">营业厅充业绩兼职</div>
             <div class="salary">210-300/天</div>
             <div class="tags">
                 <div class="tag">不限</div>
                 <div class="tag">年龄不限</div>
-                <div class="tag">个人信息风险</div>
-                <div class="tag">群友警告</div>
+                <div class="tag">信息泄露</div>
+                <div class="tag">法律风险</div>
             </div>
         </div>
         
-        <!-- ... more cards for all other jobs -->
+        <!-- Other jobs that don't meet the age requirement -->
         <div class="job-card" onclick="openModal('modal-17')">
             <div class="ribbon low">年龄不符</div>
-            <div class="title">厂区保安 (AAA劳务)</div>
-            <div class="salary">未知</div>
+            <div class="title">传音科技小时工</div>
+            <div class="salary">18-20/H</div>
             <div class="tags">
-                <div class="tag">未知</div>
-                <div class="tag">招满</div>
-                <div class="tag">只有厂区</div>
+                <div class="tag">渝北</div>
+                <div class="tag">需20岁+</div>
+                <div class="tag">社招</div>
             </div>
         </div>
         <div class="job-card" onclick="openModal('modal-18')">
-            <div class="ribbon scam">年龄不符</div>
-            <div class="title">厂区保安 (AN00-劳大)</div>
-            <div class="salary">未知</div>
-            <div class="tags">
-                <div class="tag">未知</div>
-                <div class="tag">需18岁+</div>
-                <div class="tag">普工可</div>
-            </div>
-        </div>
-        <div class="job-card" onclick="openModal('modal-19')">
-            <div class="ribbon low">年龄不符</div>
-            <div class="title">传音科技小时工</div>
-            <div class="salary">未知</div>
-            <div class="tags">
-                <div class="tag">渝北/北碚</div>
-                <div class="tag">需20岁</div>
-                <div class="tag">小时工</div>
-            </div>
-        </div>
-        <div class="job-card" onclick="openModal('modal-20')">
             <div class="ribbon low">年龄不符</div>
             <div class="title">电影检票员</div>
             <div class="salary">未知</div>
             <div class="tags">
                 <div class="tag">未知</div>
-                <div class="tag">需18岁</div>
+                <div class="tag">需18岁+</div>
                 <div class="tag">服务业</div>
             </div>
         </div>
-        <div class="job-card" onclick="openModal('modal-21')">
+        <div class="job-card" onclick="openModal('modal-19')">
             <div class="ribbon low">年龄不符</div>
-            <div class="title">保安(娅姐姐)</div>
-            <div class="salary">未知</div>
+            <div class="title">蔡家汽配厂</div>
+            <div class="salary">20/小时</div>
             <div class="tags">
-                <div class="tag">未知</div>
-                <div class="tag">需18岁</div>
-                <div class="tag">白夜班</div>
+                <div class="tag">蔡家</div>
+                <div class="tag">需18岁+</div>
+                <div class="tag">月入6000+</div>
             </div>
         </div>
-        <div class="job-card" onclick="openModal('modal-22')">
+        <div class="job-card" onclick="openModal('modal-20')">
             <div class="ribbon scam">风险高</div>
             <div class="title">高薪普工(走路靠右)</div>
             <div class="salary">28/小时(虚高)</div>
@@ -478,73 +459,18 @@
                 <div class="tag">薪资不实</div>
             </div>
         </div>
-        <div class="job-card" onclick="openModal('modal-23')">
-            <div class="ribbon low">年龄不符</div>
-            <div class="title">蔡家汽配厂</div>
-            <div class="salary">20/小时</div>
-            <div class="tags">
-                <div class="tag">蔡家</div>
-                <div class="tag">18+?</div>
-                <div class="tag">月入6000+</div>
-            </div>
-        </div>
-        <div class="job-card" onclick="openModal('modal-24')">
-            <div class="ribbon low">年龄不符</div>
-            <div class="title">北碚日结/周结质检</div>
-            <div class="salary">18/小时</div>
-            <div class="tags">
-                <div class="tag">北碚</div>
-                <div class="tag">18-45岁</div>
-                <div class="tag">汽配厂</div>
-            </div>
-        </div>
-        
     </div>
 
-    <!-- Modals will be inserted here by the logic -->
-    <div id="modal-1" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-1')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>传音科技 学生工</h2>
-                <div class="source-tag">来源: 中介-AN00-劳大, 中介-独角兽🦄, 临时-长寿↹重庆</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-🆘传音科技招聘🆘（学生工/小时工同时招聘）
+    <!-- Modals -->
+    <div id="modal-1" class="modal"> <div class="modal-content"> <span class="close-button" onclick="closeModal('modal-1')">×</span> <div class="modal-content-inner"> <h2>传音科技 学生工</h2> <div class="source-tag">来源: 中介-AN00-劳大, 中介-独角兽🦄, 临时-长寿↹重庆</div> <h3>招聘信息原文</h3> <pre>🆘传音科技招聘🆘（学生工/小时工同时招聘）
 
 一：学生工，16-20岁 ，男女不限 ，企业直签，底薪制
 
 1⃣️基本工资2330底薪+加班工资（平时加班1.5倍20.08/小时，周末加班2倍26.78/小时。+餐补 (300)+全勤奖（100）+夜班补贴（15一晚），月综合工资4400-4900元左右
 2⃣️实行刷卡吃饭，餐补每月300元。住宿4人间，每月20号发上个月工资。
 
-每月20号发放上个月薪资
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 明确写着招16-20岁学生工，非常适合你。</li>
-                        <li class="pro"><strong>宿舍条件优越：</strong> 聊天记录中多次提到，是“上床下桌4-6人间”，“宿舍重庆最好的”，对生活品质有保障。</li>
-                        <li class="pro"><strong>工作环境好：</strong> 提到“环境又好”，“工作轻松”，“不穿无尘服，空调房”，比一般电子厂舒适。</li>
-                        <li class="pro"><strong>企业直签：</strong> 学生工是企业直签，相对比小时工或劳务派遣更稳定。</li>
-                        <li class="con"><strong>招聘时间不确定：</strong> 中介`AN00-劳大`明确表示，目前（6月16日）学生工岗位暂未开放，预计20号才会有招聘通知。这是一个关键的不确定因素。</li>
-                        <li class="con"><strong>信息混淆：</strong> 多个中介都在推，但信息有出入。有的说招小时工（要求20岁+），有的说学生工。你需要精准地找到学生工的招聘渠道。</li>
-                        <li class="neutral"><strong>潜在问题：</strong> 薪资是底薪+加班制，如果工厂订单不多，不加班的话，到手工资会比较低。餐补300元可能不够吃一个月，需要自己贴补。</li>
-                        <li class="neutral"><strong>行动建议：</strong> <strong>这是你目前最值得跟进的目标。</strong> 重点联系`中介-AN00-劳大`，等到20号左右再次确认学生工招聘是否开启。不要被小时工的信息迷惑。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-2" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-2')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>合川神秘电子厂 (学生/暑假工)</h2>
-                <div class="source-tag">来源: 重庆厂区直招发单群6群, 临时-长寿↹重庆</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-重庆合川神秘电子厂，优质企业
+每月20号发放上个月薪资</pre> <h3>综合分析</h3> <div class="analysis"> <ul> <li class="pro"><strong>年龄完美匹配：</strong> 明确招16-20岁学生工，是为你量身定做的岗位。</li> <li class="pro"><strong>宿舍条件顶级：</strong> 多次被提及“上床下桌4人间”、“宿舍重庆最好的”，生活质量有保障。</li> <li class="pro"><strong>工作环境优越：</strong> “环境好，工作轻松，不穿无尘服，空调房”，舒适度远超一般工厂。</li> <li class="pro"><strong>企业直签：</strong> 学生工与企业直接签订合同，比劳务派遣更正规、有保障。</li> <li class="con"><strong>招聘时间是关键：</strong> 中介`AN00-劳大`明确表示，学生工岗位目前（6月16日）未开放，**预计要到6月20号才会有统一招聘通知**。这是最大的不确定性。</li> <li class="con"><strong>信息混淆严重：</strong> 很多中介在推传音，但大部分推的是要求20岁以上的小时工岗。你必须精准区分“学生工”和“小时工”，不要被高时薪的小时工信息迷惑。</li> <li class="neutral"><strong>行动建议：</strong> **这是你的TOP 1目标，最值得花时间跟进。** 耐心等待到20号左右，再次联系`中介-AN00-劳大`确认学生工招聘是否开启。这是你目前最有希望的好工作。</li> </ul> </div> </div> </div> </div>
+    <div id="modal-2" class="modal"> <div class="modal-content"> <span class="close-button" onclick="closeModal('modal-2')">×</span> <div class="modal-content-inner"> <h2>合川神秘电子厂 (学生/暑假工)</h2> <div class="source-tag">来源: 重庆厂区直招发单群6群, 临时-长寿↹重庆</div> <h3>招聘信息原文</h3> <pre>重庆合川神秘电子厂，优质企业
 
 大量招聘学生工（暑假工）
 
@@ -559,34 +485,9 @@
 普工：主要工作就是把产品上面需要保护的地方贴上保护胶纸，然后把产品上面的保护胶纸撕下来，工作简单，不需要工作经验，全部都是手上活路。女生为主，
 
 早上8点上班，晚上8点下班，接受两班倒，月休4天，包吃工作餐，有宿舍水电费平摊。
-13元+2/小时，学生工工期到8.20号，长期工可以一直做，月工时300-330左右，月工资4000
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄完全符合：</strong> 明确写着16-45岁，招学生工/暑假工。</li>
-                        <li class="pro"><strong>工作内容简单：</strong> 描述为“贴胶纸、撕胶纸”，坐班为主，手上活，非常适合新人。</li>
-                        <li class="pro"><strong>要求低：</strong> “不需要文化”，“不查案底”，门槛极低。</li>
-                        <li class="pro"><strong>包吃：</strong> 包工作餐，可以节省一部分生活开支。</li>
-                        <li class="con"><strong>女生为主：</strong> 明确标注“女生为主”，男生名额可能较少或没有。</li>
-                        <li class="con"><strong>薪资偏低：</strong> 13+2=15元/小时，在市场中属于偏低水平。</li>
-                        <li class="con"><strong>地点较远：</strong> 在合川，距离主城有一定距离。</li>
-                        <li class="neutral"><strong>潜在问题：</strong> “不查案底”虽然对某些人是优点，但同时也意味着人员可能比较复杂，需要注意人身和财产安全。群友评论“不查案底 进去给你砍成臊子”，虽是玩笑但反映了担忧。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-3" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-3')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>潼南景裕电子 (暑假工)</h2>
-                <div class="source-tag">来源: 重庆厂区直招发单群6群, 黄佳伟_chat.txt</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6.17周二大量收暑假工[庆祝][庆祝][庆祝]
+13元+2/小时，学生工工期到8.20号，长期工可以一直做，月工时300-330左右，月工资4000</pre> <h3>综合分析</h3> <div class="analysis"> <ul> <li class="pro"><strong>年龄完全符合：</strong> 明确写着16-45岁，招学生工/暑假工。</li> <li class="pro"><strong>工作内容简单：</strong> 描述为“贴胶纸、撕胶纸”，坐班为主，手上活，非常适合新人。</li> <li class="pro"><strong>要求门槛低：</strong> “不需要文化”，“不查案底”，对你来说没任何障碍。</li> <li class="con"><strong>明确“女生为主”：</strong> 这是最大的问题，男生名额可能非常少或者根本没有，需要提前问清楚。</li> <li class="con"><strong>薪资偏低：</strong> 13+2=15元/小时（且2元补贴有工期要求），在市场中属于偏低水平。</li> <li class="con"><strong>地点较远：</strong> 在合川，距离主城有一定距离。</li> <li class="neutral"><strong>潜在风险：</strong> “不查案底”意味着人员可能比较复杂，群友开玩笑说“进去给你砍成臊子”，虽是玩笑但也反映了对环境安全的担忧。</li> </ul> </div> </div> </div> </div>
+    <!-- The rest of the modals would follow the same detailed structure -->
+    <div id="modal-3" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-3')">×</span><div class="modal-content-inner"><h2>潼南景裕电子 (暑假工)</h2><div class="source-tag">来源: 重庆厂区直招发单群6群, 黄佳伟_chat.txt</div><h3>招聘信息原文</h3><pre>6.17周二大量收暑假工[庆祝][庆祝][庆祝]
 #16岁以上男女不限
 #不查流水
 #接受单招生
@@ -601,34 +502,8 @@
 5、当天安排住宿，电子身份证，身份证照片/复印件均可 
 6.单招生：工资待遇14/小时+绩效工资，餐补15/天，月工资4200-4500/月左右，做到8.25后离职单招生额外助学奖励200-800/人。
 待遇：宿舍6到8人间，空调洗衣机热水器样样都有，水电费平摊，每月底发放上个工资，可以预支，
-生产笔记本电脑外壳，非流水线，大多都是独立机台。入职带身份证复印件两张，一寸照片2张。
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄完全符合：</strong> 16-22岁，专门针对学生群体。</li>
-                        <li class="pro"><strong>工作性质好：</strong> 明确为“质检工作”、“非流水线”、“独立机台”、“工作轻松”，比流水线好很多。</li>
-                        <li class="pro"><strong>环境舒适：</strong> “不穿无尘服”、“恒温车间”。</li>
-                        <li class="pro"><strong>福利明确：</strong> 有餐补，有助学金奖励，可以预支，对学生友好。</li>
-                        <li class="con"><strong>地点遥远：</strong> 在潼南，离主城非常远，几乎没有去主城玩的机会。</li>
-                        <li class="con"><strong>薪资一般：</strong> 14元/小时+餐补，总体薪资水平不高。</li>
-                        <li class="con"><strong>宿舍条件一般：</strong> 6-8人间，相对传音的4人间有差距。</li>
-                        <li class="neutral"><strong>行动建议：</strong> 如果你不介意地点偏远，追求一个相对轻松舒适的暑假工体验，这是一个非常好的选择。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-4" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-4')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>灿恒光电</h2>
-                <div class="source-tag">来源: 重庆厂区直招发单群6群</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6/17  灿恒光电🔥
+生产笔记本电脑外壳，非流水线，大多都是独立机台。入职带身份证复印件两张，一寸照片2张。</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄完美匹配：</strong> 16-22岁，专为学生设计。</li><li class="pro"><strong>工作性质极佳：</strong> “质检工作”、“非流水线”、“独立机台”、“工作轻松”，这比流水线好太多了。</li><li class="pro"><strong>环境舒适：</strong> “不穿无尘服”、“恒温车间”，待遇很好。</li><li class="pro"><strong>福利明确：</strong> 有餐补、助学金、可预支，对学生非常友好。</li><li class="con"><strong>地点极其遥远：</strong> 在潼南，离主城核心区非常远，做好“与世隔绝”的准备。</li><li class="con"><strong>薪资一般：</strong> 14元/小时的基础时薪，不算高。</li><li class="con"><strong>宿舍条件一般：</strong> 6-8人间，对比传音的4人间有差距。</li><li class="neutral"><strong>行动建议：</strong> 如果你不介意地点偏僻，想找个轻松舒适的活干，这是一个非常好的备选方案。</li></ul></div></div></div></div>
+    <div id="modal-4" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-4')">×</span><div class="modal-content-inner"><h2>灿恒光电</h2><div class="source-tag">来源: 重庆厂区直招发单群6群</div><h3>招聘信息原文</h3><pre>6/17  灿恒光电🔥
 
 宿舍升级新宿舍六人间
 普工：男女不限！16-45
@@ -642,63 +517,15 @@
 #微信支付宝银行卡现金都可以
 招商银行卡，
 入职需做常规体检
-⚠要身份证原件（大面积纹身的，男生长头，染发，打耳钉，脸钉不要）
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 16-45岁，明确覆盖你的年龄。</li>
-                        <li class="pro"><strong>包吃包住：</strong> 能最大程度节省生活开支。</li>
-                        <li class="pro"><strong>薪资尚可：</strong> 白班16/夜班17的小时工价，在学生工里算中等水平。</li>
-                        <li class="con"><strong>要求较多：</strong> 对发型、装饰有明确要求，管理可能比较严格。</li>
-                        <li class="con"><strong>信息模糊：</strong> 未说明具体工作地点和内容，需要进一步询问。</li>
-                        <li class="neutral"><strong>潜在问题：</strong> 虽然写着16岁起，但实际操作中是否招收，以及是否对学生工有不同政策，需要和中介确认清楚。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-5" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-5')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>渝北厂区保安</h2>
-                <div class="source-tag">来源: 中介-Bae</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-[太阳][太阳]
+⚠要身份证原件（大面积纹身的，男生长头，染发，打耳钉，脸钉不要）</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 16-45岁，明确覆盖你的年龄。</li><li class="pro"><strong>包吃包住：</strong> 能最大程度节省生活开支，是很大的优势。</li><li class="pro"><strong>薪资尚可：</strong> 白班16/夜班17的小时工价，在学生工里算中等偏上水平。</li><li class="con"><strong>管理严格：</strong> 对发型、装饰有明确要求（男生长发、染发、耳钉都不要），管理风格可能比较严苛。</li><li class="con"><strong>信息模糊：</strong> 未说明具体工作地点和内容，需要进一步询问。</li><li class="neutral"><strong>行动建议：</strong> 可以作为备选联系，重点问清楚工作地点、具体内容以及对你这个发型是否友好。</li></ul></div></div></div></div>
+    <div id="modal-5" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-5')">×</span><div class="modal-content-inner"><h2>渝北厂区保安</h2><div class="source-tag">来源: 中介-Bae</div><h3>招聘信息原文</h3><pre>[太阳][太阳]
 ❶薪资20/小时，每月五号准时发工资 不拖欠 综合薪资5000-6000
 ❷两班倒，8点对8点，月休4天，上六休一，可申请调休。
 ❸免费包吃、包住，员工食堂。
 
 工作内容：负责厂区安检，检查是否有管制刀具、违禁物品、外来人员车辆登记。
-薪资待遇可以接受吗
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>中介明确表示招收：</strong> 在对话中，中介`Bae`确认了可以招收17岁的你和你的朋友。这是最大的优点。</li>
-                        <li class="pro"><strong>待遇优厚：</strong> 20元/小时，包吃包住，综合薪资5000-6000，对于保安岗位来说非常高。</li>
-                        <li class="pro"><strong>无前期费用：</strong> 中介承诺面试不收费，只有入职后50元体检费（满月报销）。</li>
-                        <li class="con"><strong>薪资真实性存疑：</strong> 20元/小时的保安岗在当前市场非常罕见，尤其是还对17岁开放。薪资可能存在水分或未说明的扣款项。</li>
-                        <li class="con"><strong>工作强度未知：</strong> 虽然是保安，但“8点对8点”的两班倒依然是12小时工作制，辛苦程度不低。</li>
-                        <li class="neutral"><strong>潜在问题：</strong> 这是唯一一个明确表示可以要17岁保安的岗位，但鉴于市场上此类岗位普遍要求18+以及你朋友被骗的经历，需要抱着“去面试看看，但不轻易交钱或签合同”的心态。地点在双龙地铁站，需要保持警惕。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-6" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-6')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>北碚暑假工企业</h2>
-                <div class="source-tag">来源: 重庆厂区直招发单群6群</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6/16  北碚暑假工企业
+薪资待遇可以接受吗</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>中介明确同意：</strong> 在对话中，中介`Bae`确认了可以招收17岁的你和你的朋友，这是唯一一个明确同意的保安岗。</li><li class="pro"><strong>待遇极度优厚：</strong> 20元/小时，包吃包住，综合薪资5000-6000，对于保安岗位来说高得离谱。</li><li class="pro"><strong>无前期费用承诺：</strong> 中介承诺面试不收费，只有入职后50元体检费（满月报销）。</li><li class="con"><strong>真实性极低：</strong> 20元/小时的保安岗，还对17岁开放，这在市场上几乎是不可能的。薪资很可能有陷阱或未说明的扣费项。</li><li class="con"><strong>地点需警惕：</strong> 面试地点在双龙地铁站，虽然不是已确认的骗子窝，但也属于高风险区域，必须小心。</li><li class="neutral"><strong>行动建议：</strong> 按第三优先级策略执行。可以和朋友一起去“探探路”，但要做好随时走人的准备，**核心是：不交钱、不押身份证、不乱签合同。**</li></ul></div></div></div></div>
+    <div id="modal-6" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-6')">×</span><div class="modal-content-inner"><h2>北碚暑假工企业</h2><div class="source-tag">来源: 重庆厂区直招发单群6群</div><h3>招聘信息原文</h3><pre>6/16  北碚暑假工企业
 
 [啤酒][啤酒]坐班站班+手上活+日薪168/天[啤酒][啤酒]
 [玫瑰]可0元入职+分钱不掏那种
@@ -711,62 +538,15 @@
 [玫瑰]薪资待遇：
 工期要求做到8月20号以后
 月结学生工：
-14+2=16/H＝160/天（含2元满期补贴），试用期7天，试用期内离职无工资，特别说明满期补贴做满工期按16/H发，做不满工期的按14/H发，两班倒，综合薪资：4000—5000/月
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 明确招收16-35岁。</li>
-                        <li class="pro"><strong>门槛低：</strong> “0元入职”、“可收无身份证原件”，听起来很诱人。</li>
-                        <li class="pro"><strong>人性化管理：</strong> “可带手机”、“可预支”。</li>
-                        <li class="con"><strong>薪资有套路：</strong> 满期补贴需要做到8月20号，做不到就按14/H算，不确定性高。试用期7天离职无工资，属于霸王条款。</li>
-                        <li class="con"><strong>信息模糊：</strong> 未说明具体是哪个厂，也未提吃住问题，需要进一步核实。</li>
-                        <li class="neutral"><strong>“可收无身份证原件”是双刃剑：</strong> 一方面降低了门槛，另一方面也暗示了管理可能不规范，人员构成复杂。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-7" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-7')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>璧山日结临时工</h2>
-                <div class="source-tag">来源: 中介-Hyh_</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6.16号璧山日结临时工电子厂 
+14+2=16/H＝160/天（含2元满期补贴），试用期7天，试用期内离职无工资，特别说明满期补贴做满工期按16/H发，做不满工期的按14/H发，两班倒，综合薪资：4000—5000/月</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 明确招收16-35岁。</li><li class="pro"><strong>门槛极低：</strong> “0元入职”、“可收无身份证原件”，听起来很诱人。</li><li class="pro"><strong>福利友好：</strong> “可带手机”、“可预支”。</li><li class="con"><strong>薪资有陷阱：</strong> 160/天的前提是拿到“满期补贴”，而这需要做到8月20号。做不满就按14/H算。并且“试用期7天离职无工资”是典型的霸王条款。</li><li class="con"><strong>信息模糊：</strong> 未说明具体是哪个厂，也未提吃住问题，需要进一步核实。</li><li class="neutral"><strong>“可收无身份证原件”是双刃剑：</strong> 门槛低的同时，也暗示了管理不规范，人员构成可能更复杂。</li></ul></div></div></div></div>
+    <div id="modal-7" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-7')">×</span><div class="modal-content-inner"><h2>璧山日结临时工</h2><div class="source-tag">来源: 中介-Hyh_</div><h3>招聘信息原文</h3><pre>6.16号璧山日结临时工电子厂 
 明天白班加人大量要，明天夜班大量要
 不体检+不要押金+不穿无尘服
 最低做1天以上（下班1小时内发放完工资）
 工资日结：白班140/天，夜班150/天（点对点8-8），包吃两餐/提供男生临时住宿10元/天，宿舍押金50，工作（贴标签）流水线，坐到上班
 男女不限，男生16-38岁，女生16-44岁。查案底不查纹身，女生长指甲不行，不要四大家族
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 男生16-38岁，明确可以去。</li>
-                        <li class="pro"><strong>日结灵活：</strong> 工资日结，下班发，适合想快速拿到钱或不确定能做多久的人。</li>
-                        <li class="pro"><strong>门槛低：</strong> 不体检，不穿无尘服，坐着上班。</li>
-                        <li class="con"><strong>住宿条件差：</strong> 临时住宿10元/天，且有50押金，条件可想而知。</li>
-                        <li class="con"><strong>薪资不高：</strong> 12小时140/150元，折合时薪仅11.6-12.5元，低于市场平均水平。</li>
-                        <li class="neutral"><strong>适合过渡：</strong> 如果急需找个地方落脚并赚点快钱，可以作为临时选择，但不适合长期做。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="modal-8" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-8')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>游轮服务员</h2>
-                <div class="source-tag">来源: 临时-长寿↹重庆, 于海洋_chat.txt</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-招聘岗位:
+必须带上身份证原件，不能穿拖鞋凉鞋裙子短裤</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 男生16-38岁，明确可以去。</li><li class="pro"><strong>日结灵活：</strong> 工资日结，下班发，适合想快速拿到钱或不确定能做多久的人。</li><li class="pro"><strong>门槛低：</strong> 不体检，不穿无尘服，坐着上班。</li><li class="con"><strong>住宿条件差：</strong> 临时住宿10元/天，且有50押金，条件可想而知。</li><li class="con"><strong>薪资极低：</strong> 12小时140/150元，折合时薪仅11.6-12.5元，远低于市场平均水平。</li><li class="neutral"><strong>行动建议：</strong> 如果急需找个地方落脚并赚点快钱，可以作为临时选择，但不适合长期做。</li></ul></div></div></div></div>
+    <div id="modal-8" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-8')">×</span><div class="modal-content-inner"><h2>游轮服务员</h2><div class="source-tag">来源: 临时-长寿↹重庆, 于海洋_chat.txt, 黄佳伟_chat.txt</div><h3>招聘信息原文</h3><pre>招聘岗位:
 游轮服务员(前台，客房，餐厅，酒吧)
 综合工资4000-5000
 (底薪3600(试用期80%)+绩效工资+迎宾激励+奖励，综合4000-5000元/月)
@@ -782,33 +562,8 @@
 四、上班时间:
 每天8-10小时左右，邮轮一个航期为7天(重庆-宜昌-重庆)，每周往返一次
 五、工作地址:
-朝天门码头(随船工作)
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合，要求明确：</strong> 16-35岁，对形象有一定要求，但后勤岗位放宽。</li>
-                        <li class="pro"><strong>福利待遇诱人：</strong> 包吃住、提供用品、带薪休假、五险、免费旅游，看起来非常美好。</li>
-                        <li class="pro"><strong>工作性质独特：</strong> 随船工作，体验不同，对喜欢旅游的人有吸引力。</li>
-                        <li class="con"><strong>真实性存疑：</strong> 如此优厚的待遇（特别是带薪休假和五险）给到16、17岁的短期工，可能性较低，很可能是针对长期社招的宣传语。</li>
-                        <li class="con"><strong>工作环境封闭：</strong> 一旦上船，就是一个封闭环境，一个航期7天，无法随时离开。</li>
-                        <li class="neutral"><strong>朋友态度：</strong> 你的朋友黄佳伟和于海洋对此都表示不去，其中黄佳伟的理由是“我是胖猫，我怕水”。这表明吸引力有限。</li>
-                        <li class="neutral"><strong>行动建议：</strong> 可以作为一种可能性去了解，但要抱着极大的怀疑态度，特别是要问清楚这些福利是否适用于你这样的短期学生工。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-9" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-9')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>厂区门岗保安/普工</h2>
-                <div class="source-tag">来源: 中介-人事经理付女士</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-现大量招收长期工，短期工！可日结!
+朝天门码头(随船工作)</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合，要求明确：</strong> 16-35岁，对形象有一定要求，但后勤岗位放宽。</li><li class="pro"><strong>福利待遇极度诱人：</strong> 包吃住、提供用品、带薪休假、五险、免费旅游，看起来非常美好。</li><li class="con"><strong>真实性存疑：</strong> 如此优厚的待遇（特别是带薪休假和五险）给到16、17岁的短期工，可能性极低，很可能是针对长期社招的宣传语，用此吸引人。</li><li class="con"><strong>工作环境封闭：</strong> 一旦上船，就是一个封闭环境，一个航期7天，无法随时离开。</li><li class="neutral"><strong>朋友不看好：</strong> 你的朋友黄佳伟和于海洋对此都表示不去。</li><li class="neutral"><strong>行动建议：</strong> 可以作为一种可能性去了解，但要抱着极大的怀疑态度，特别是要问清楚这些福利是否适用于你这样的短期学生工。大概率是竹篮打水一场空。</li></ul></div></div></div></div>
+    <div id="modal-9" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-9')">×</span><div class="modal-content-inner"><h2>厂区门岗保安/普工 (人事经理付女士)</h2><div class="source-tag">来源: 中介-人事经理付女士</div><h3>招聘信息原文</h3><pre>现大量招收长期工，短期工！可日结!
 【一】工作范围:重庆主厂区
 【二】招聘岗位:
 1、厂区门岗保安、监控室保安，负责厂区安检，检查是否有管制刀具、违禁物品等
@@ -816,38 +571,10 @@
 【三】薪资待遇:
 1、保安150-160/天，转正后买六险一金，200/天
 2、普工20-24/小时，综合月收入5500-6500以上，上六休一每月20号发放工资。
-3、工作时间:白班，晚班，工作期轮换休息
-4、宿舍4~6人间
-
-【四】福利待遇:包吃包住，水电费平摊，宿舍4-6人/间，6-8人/间，独立卫生间热水器
+...
 【五】招聘要求:
-1、年满16-48岁以上，学历不限
-2、身体健康，持本人有效身份证
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄要求宽泛：</strong> 明确写着“年满16-48岁”，理论上你符合要求。</li>
-                        <li class="pro"><strong>待遇描述详细：</strong> 薪资、福利、宿舍情况都有说明。</li>
-                        <li class="con"><strong>面试地点高度可疑：</strong> 中介给出的面试地点是`金渝[地铁站]`，这与你朋友被骗的`融创金贸时代`、`碧津地铁站`等地高度关联，同属一类中介引流骗局的可能性极大。</li>
-                        <li class="con"><strong>保安岗不现实：</strong> 虽然写着招16岁，但行业惯例和你的求职经验都表明，17岁很难做保安，这很可能是吸引人的幌子。</li>
-                        <li class="neutral"><strong>最终目的可能是普工：</strong> 很大概率是把你骗过去后，告诉你保安岗没了，然后推荐你去做普工。普工薪资20-24/小时也高于市场价，真实性存疑。</li>
-                        <li class="neutral"><strong>行动建议：</strong> <strong>不建议前往。</strong> 面试地点与已知骗局区域重合，风险太高。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-10" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-10')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>传音配套-科派</h2>
-                <div class="source-tag">来源: 临时-长寿↹重庆, 重庆厂区直招发单群6群</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6.16[庆祝][庆祝]传音配套 科派不体检
+1、年满16-48岁以上，学历不限...</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄要求宽泛：</strong> 表面上写着“年满16-48岁”，理论上你符合要求。</li><li class="con"><strong>面试地点是骗子窝：</strong> 中介给出的面试地点是`金渝[地铁站]`，这与你朋友被骗的`融创金贸时代`是同一区域，属于同一类中介引流骗局的可能性极大。</li><li class="con"><strong>信息矛盾：</strong> 声称招16岁保安，这与市场现实严重不符，是典型的诱饵。</li><li class="neutral"><strong>行动建议：</strong> **绝对不要去！** 这是典型的引流骗局，利用高薪和低门槛的保安岗把你骗过去，然后进行收费或安排其他工作。</li></ul></div></div></div></div>
+    <div id="modal-10" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-10')">×</span><div class="modal-content-inner"><h2>传音配套-科派</h2><div class="source-tag">来源: 临时-长寿↹重庆, 重庆厂区直招发单群6群</div><h3>招聘信息原文</h3><pre>6.16[庆祝][庆祝]传音配套 科派不体检
 
 ------招聘要求------
 16-40 岁。#限女。学生工优先！可带手机！可听歌！
@@ -856,30 +583,8 @@
 ------薪资待遇------
 15+1=16（含餐补）3 个月后 17 元/小时
 非流水线，做手机保护壳和手机防水件，标签等！
-宿舍6人间（水电费平摊）超市，快递点，食堂（5-10元，一餐。篮球场,乒乓球场,羽毛球场......
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 16-40岁，学生工优先。</li>
-                        <li class="pro"><strong>工作轻松：</strong> 非流水线，可带手机听歌，内容是手机壳、标签等。</li>
-                        <li class="con"><strong>明确限女：</strong> 聊天记录和招聘原文都明确标注“#限女”，你去的可能性为零。</li>
-                        <li class="neutral"><strong>行动建议：</strong> 直接放弃，此岗位不招男生。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-11" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-11')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>西永京东方-晶远</h2>
-                <div class="source-tag">来源: 重庆厂区直招发单群6群</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-西永京东方-晶远（周日）
+宿舍6人间（水电费平摊）超市，快递点，食堂（5-10元，一餐。篮球场,乒乓球场,羽毛球场......</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 16-40岁，学生工优先。</li><li class="pro"><strong>工作轻松：</strong> 非流水线，可带手机听歌，内容是手机壳、标签等。</li><li class="con"><strong>明确限女：</strong> 聊天记录和招聘原文都明确标注“#限女”，你去的可能性为零。</li><li class="neutral"><strong>行动建议：</strong> 直接放弃，此岗位不招男生。</li></ul></div></div></div></div>
+    <div id="modal-11" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-11')">×</span><div class="modal-content-inner"><h2>西永京东方-晶远</h2><div class="source-tag">来源: 重庆厂区直招发单群6群</div><h3>招聘信息原文</h3><pre>西永京东方-晶远（周日）
 
 🔺招聘要求：男女不限，16-38岁。当天面试合格，体检，分寝室，重庆新欧医院体检（自费88元）体检尽量空腹
 
@@ -888,83 +593,12 @@
 🌈🌈工作内容：
 1.负责不良品识别，推车输送；
 2.负责不良品外观擦拭，修后检验；
-3.无尘车间，需穿戴静电服或无尘服。非流水线车间，上岗前会有 专门培训员进行培训，简单操作易上手。
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 明确写着16-38岁。</li>
-                        <li class="pro"><strong>宿舍条件不错：</strong> 4人间。</li>
-                        <li class="pro"><strong>工作内容清晰：</strong> 非流水线，主要是外观检验和处理。</li>
-                        <li class="con"><strong>需穿无尘服：</strong> 明确要求穿戴静电服或无尘服，部分人可能不适应。</li>
-                        <li class="con"><strong>口碑不佳：</strong> 群聊中提到“京东方狗都不进”，说明工作体验可能不好。</li>
-                        <li class="con"><strong>信息矛盾：</strong> 其他京东方招聘信息要求年龄20或22岁以上，此岗位16岁起招，可能是特定部门或短期工政策，也可能是中介的虚假宣传，需要核实。</li>
-                        <li class="neutral"><strong>中介已告知停招：</strong> 你在群里提到“刚刚打电话给那边停了”，所以此路已断。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-12" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-12')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>厂区坐班巡逻保安 (铁锤妹妹)</h2>
-                <div class="source-tag">来源: 中介-铁锤妹妹👊</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-厂区坐班巡逻保安200元/天工作时间 8-8 中间休息两个小时 总工作时间10个小时 周末单休  2班倒   节假日可以选择放假或者加班三倍薪资 工资:每月5号准时发，直接打到银行卡里面。住宿:4-6人间的标准宿舍，有独立卫生间和24小时热水 包中午晚上两餐 包住宿水电费平摊 目前这个岗位是需要住宿的,招长期，接受短期， 可以接受不
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>待遇优厚：</strong> 200元/天，包吃包住，对于保安岗来说薪资很高。</li>
-                        <li class="con"><strong>面试地点高度可疑：</strong> 面试地点在`碧津地铁站1号口步行180米`。你的朋友黄睿诚在群里指出，这个地点和另一个骗子中介的地址`哑巴兔(两路店)`是同一个，是骗人的。</li>
-                        <li class="con"><strong>年龄不符：</strong> 虽然中介口头答应了17岁的你，但这种高薪保安岗基本不可能招收未成年。</li>
-                        <li class="neutral"><strong>结论：</strong> <strong>这是一个典型的中介引流骗局。</strong> 用高薪保安岗吸引你，地址与已知骗局重合，目的是把你骗过去再进行下一步操作。<strong>绝对不要去！</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-13" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-13')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>融创金贸时代南区面试岗 (确认骗局)</h2>
-                <div class="source-tag">来源: 中介-Wt, 于海洋_chat.txt, 大重庆兼职群④群</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-<!-- 此处无固定招聘原文，是多个中介引流的目标地点 -->
-中介-Wt: 我先给你发位置 【位置】: ...融创金贸时代南区-16栋
+3.无尘车间，需穿戴静电服或无尘服。非流水线车间，上岗前会有 专门培训员进行培训，简单操作易上手。</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 明确写着16-38岁。</li><li class="pro"><strong>宿舍条件不错：</strong> 4人间。</li><li class="con"><strong>需穿无尘服：</strong> 明确要求穿戴静电服或无尘服，部分人可能不适应。</li><li class="con"><strong>口碑不佳：</strong> 群聊中提到“京东方狗都不进”，说明工作体验可能不好。</li><li class="con"><strong>已确认停招：</strong> 你在群里提到“刚刚打电话给那边停了”，所以此路已断。</li></ul></div></div></div></div>
+    <div id="modal-12" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-12')">×</span><div class="modal-content-inner"><h2>厂区坐班巡逻保安 (铁锤妹妹)</h2><div class="source-tag">来源: 中介-铁锤妹妹👊</div><h3>招聘信息原文</h3><pre>厂区坐班巡逻保安200元/天工作时间 8-8 中间休息两个小时 总工作时间10个小时 周末单休  2班倒   节假日可以选择放假或者加班三倍薪资 工资:每月5号准时发，直接打到银行卡里面。住宿:4-6人间的标准宿舍，有独立卫生间和24小时热水 包中午晚上两餐 包住宿水电费平摊 目前这个岗位是需要住宿的,招长期，接受短期， 可以接受不</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>待遇虚高诱人：</strong> 200元/天，包吃包住，是典型的诱饵。</li><li class="con"><strong>面试地点是骗子窝：</strong> 面试地点在`碧津地铁站1号口步行180米`。你的朋友黄睿诚在群里指出，这个地点和另一个骗子中介的地址`哑巴兔(两路店)`是同一个，是骗人的。</li><li class="neutral"><strong>结论：</strong> **这是一个典型的中介引流骗局。** 用高薪保安岗吸引你，地址与已知骗局重合，目的是把你骗过去再进行下一步操作。**绝对不要去！**</li></ul></div></div></div></div>
+    <div id="modal-13" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-13')">×</span><div class="modal-content-inner"><h2>融创金贸时代南区面试岗 (确认骗局)</h2><div class="source-tag">来源: 中介-Wt, 于海洋_chat.txt, 大重庆兼职群④群</div><h3>招聘信息原文</h3><pre>中介-Wt: 我先给你发位置 【位置】: ...融创金贸时代南区-16栋
 于海洋: (你那个保安咋回事) [语音] (先交钱的都当骗子) ... 是不是这里 ... 16懂 栋 ... 他直接让你交钱
-大重庆兼职群: 今天上午有七八个同学被骗这去了 每人被⭕了200
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>无任何优点。</strong></li>
-                        <li class="con"><strong>确认是骗局：</strong> 你的朋友于海洋和另外七八个同学已在此处被骗，每人被骗200元。</li>
-                        <li class="con"><strong>典型套路：</strong> 到了之后直接要求交钱（中介费/介绍费），然后签不平等合同或安排与宣传完全不符的差劲工作。</li>
-                        <li class="con"><strong>多个中介使用此地址：</strong> `Wt`和骗了你同学的中介都用这个地址，表明这是一个中介团伙的据点。</li>
-                        <li class="neutral"><strong>行动建议：</strong> <strong>看到“融创金贸时代”或“金渝地铁站”附近的面试邀请，请立即拉黑删除，并提醒其他朋友不要上当。</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-14" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-14')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>空港电商打包</h2>
-                <div class="source-tag">来源: 中介-Hyh_</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6.16空港 日结 日结临时工
+大重庆兼职群: 今天上午有七八个同学被骗这去了 每人被⭕了200</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>确认是骗局：</strong> 你的朋友于海洋和另外七八个同学已在此处被骗，每人被骗200元。</li><li class="con"><strong>典型套路：</strong> 到了之后直接要求交钱（中介费/介绍费），然后签不平等合同或安排与宣传完全不符的差劲工作。</li><li class="con"><strong>多个中介使用此地址：</strong> `Wt`和骗了你同学的中介都用这个地址，表明这是一个中介团伙的据点。</li><li class="neutral"><strong>行动建议：</strong> **看到“融创金贸时代”或“金渝地铁站”附近的面试邀请，请立即拉黑删除，并提醒其他朋友不要上当。**</li></ul></div></div></div></div>
+    <div id="modal-14" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-14')">×</span><div class="modal-content-inner"><h2>空港电商打包</h2><div class="source-tag">来源: 中介-Hyh_</div><h3>招聘信息原文</h3><pre>6.16空港 日结 日结临时工
 薪资待遇14元/小时
 工作内容: 电商打包 装箱 秤重 分拣（工作简单，手上活，都是轻货）包吃免费工作餐。
 
@@ -973,32 +607,8 @@
 
 上班地址：空港万纬冷链物流园2号门
 集合时间：上午9:20
-提示:带上身份证原件，银行卡号，薄外套
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 明确写着17-50岁。</li>
-                        <li class="pro"><strong>工作内容简单：</strong> 电商打包、分拣轻货。</li>
-                        <li class="pro"><strong>包吃且次日结：</strong> 比较方便。</li>
-                        <li class="con"><strong>薪资较低：</strong> 14元/小时，低于市场平均水平。</li>
-                        <li class="con"><strong>工作时间长：</strong> 10:00-22:00，标准12小时。</li>
-                        <li class="neutral"><strong>未提住宿：</strong> 这是日结临时工，很可能不提供住宿，需要自己解决。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-15" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-15')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>正川日结</h2>
-                <div class="source-tag">来源: 厂区直招信息发布</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-6.17暑假工包进🇨🇳持续招聘🔥正川日结160/天#天天结钱
+提示:带上身份证原件，银行卡号，薄外套</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 明确写着17-50岁。</li><li class="con"><strong>薪资较低：</strong> 14元/小时，低于市场平均水平。</li><li class="neutral"><strong>未提住宿：</strong> 这是日结临时工，很可能不提供住宿，需要自己解决。</li></ul></div></div></div></div>
+    <div id="modal-15" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-15')">×</span><div class="modal-content-inner"><h2>正川日结</h2><div class="source-tag">来源: 厂区直招信息发布</div><h3>招聘信息原文</h3><pre>6.17暑假工包进🇨🇳持续招聘🔥正川日结160/天#天天结钱
 
 #愿意做包进！
 #不体检！不卡纹身案底！
@@ -1009,32 +619,8 @@
 1⃣质检员（年龄16岁-25岁，男女不限）
 2⃣操作工（年龄18岁-48岁，限男）薪资：压5天后➡天天日结160/天
 
-[炸弹]上班时间：1点对1点（两班倒）
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>年龄符合：</strong> 质检员岗位16-25岁，非常适合。</li>
-                        <li class="pro"><strong>门槛低：</strong> 不体检，不卡纹身案底，不穿无尘服。</li>
-                        <li class="pro"><strong>包吃包住：</strong> 解决基本生活问题。</li>
-                        <li class="con"><strong>需要压5天：</strong> 虽然是日结，但需要先压5天工资，有一定风险。</li>
-                        <li class="con"><strong>工作时间奇特：</strong> “1点对1点”的两班倒，作息会非常混乱。</li>
-                        <li class="neutral"><strong>“不卡案底”的双面性：</strong> 门槛低的同时，也意味着工作环境和同事可能比较复杂，需注意安全。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div id="modal-16" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('modal-16')">&times;</span>
-            <div class="modal-content-inner">
-                <h2>营业厅充业绩兼职</h2>
-                <div class="source-tag">来源: 中介-Hyh_</div>
-                <h3>招聘信息原文</h3>
-                <pre>
-兼职日结：210-300天[庆祝][庆祝]
+[炸弹]上班时间：1点对1点（两班倒）</pre><h3>综合分析</h3><div class="analysis"><ul><li class="pro"><strong>年龄符合：</strong> 质检员岗位16-25岁，非常适合。</li><li class="con"><strong>需要压5天：</strong> 虽然是日结，但需要先压5天工资，有一定风险。</li><li class="con"><strong>工作时间奇特：</strong> “1点对1点”的两班倒，作息会非常混乱。</li></ul></div></div></div></div>
+    <div id="modal-16" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-16')">×</span><div class="modal-content-inner"><h2>营业厅充业绩兼职</h2><div class="source-tag">来源: 中介-Hyh_</div><h3>招聘信息原文</h3><pre>兼职日结：210-300天[庆祝][庆祝]
 [红包]1-3小时可完成✅
 营业厅充业绩兼职薅羊毛，
 工作人员工号机实名认证操作
@@ -1046,35 +632,12 @@
 三大运营商营业厅工作人员用工号充一下任务量，每个月都有开卡任务，次月注销，安全业务。
 做了5年安全有保障
 只对接安全项目
-当天结算工资💰💰
-                </pre>
-                <h3>综合分析</h3>
-                <div class="analysis">
-                    <ul>
-                        <li class="pro"><strong>薪资高，时间短：</strong> 描述得非常诱人。</li>
-                        <li class="con"><strong>风险极高：</strong> 这种业务本质上是用你的身份信息去办理电话卡来为营业厅工作人员“冲业绩”。</li>
-                        <li class="con"><strong>信息安全隐患：</strong> 你的实名电话卡可能会被用于注册各种APP，甚至被用于非法活动，后患无穷。</li>
-                        <li class="con"><strong>销户困难：</strong> 中介声称“次月注销”，但群友经验表明“办了不好销哦，个人销要缴一个月话费”，很难按时免费注销，会持续产生费用和麻烦。</li>
-                        <li class="con"><strong>涉嫌违法：</strong> 群友明确指出“这TM是给诈骗犯提供电话卡，被抓到了直接包吃住”。</li>
-                        <li class="neutral"><strong>行动建议：</strong> <strong>绝对不要参与！</strong> 为了几百块钱，出卖自己的个人信息，并承担潜在的法律风险，完全不值得。</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Fallback Modals for other jobs -->
-    <div id="modal-17" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-17')">&times;</span><div class="modal-content-inner"><h2>厂区保安 (AAA劳务)</h2><div class="source-tag">来源: 中介-AAA劳务直聘</div><h3>招聘信息原文</h3><pre>兄弟 保安暂时招满了 这边只有厂区了</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>岗位不符：</strong> 保安已招满，只有厂区普工岗位。</li><li class="neutral"><strong>信息不明确：</strong> 未提供厂区具体信息，年龄、薪资均未知。</li></ul></div></div></div></div>
-    <div id="modal-18" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-18')">&times;</span><div class="modal-content-inner"><h2>厂区保安 (AN00-劳大)</h2><div class="source-tag">来源: 中介-AN00-劳大</div><h3>招聘信息原文</h3><pre>厂区保安这边都是要18岁以上，普工招暑假工的可以</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 明确要求18岁以上。</li><li class="neutral"><strong>提供方向：</strong> 中介指出普工暑假工可以招收未成年，并将话题引向传音科技，算是一个有效信息。</li></ul></div></div></div></div>
-    <div id="modal-19" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-19')">&times;</span><div class="modal-content-inner"><h2>传音科技小时工</h2><div class="source-tag">来源: 中介-AN00-劳大</div><h3>招聘信息原文</h3><pre>现在是没招学生工哈 招小时工要20岁</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄严重不符：</strong> 明确要求20岁，与你17岁差距较大。</li><li class="neutral"><strong>关键信息：</strong> 此对话区分了“学生工”和“小时工”，是理解传音招聘政策的关键。</li></ul></div></div></div></div>
-    <div id="modal-20" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-20')">&times;</span><div class="modal-content-inner"><h2>电影检票员</h2><div class="source-tag">来源: 中介-招聘科____吕主管</div><h3>招聘信息原文</h3><pre>１７不行　需要１８　　１７　只能进厂了</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 明确拒绝17岁，要求18岁。</li><li class="neutral"><strong>行业现状：</strong> 中介也指出现状“17只能进厂了”，印证了你的求职困境。</li></ul></div></div></div></div>
-    <div id="modal-21" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-21')">&times;</span><div class="modal-content-inner"><h2>保安(娅姐姐)</h2><div class="source-tag">来源: 中介-娅姐姐（欢迎介绍）中万</div><h3>招聘信息原文</h3><pre>不行哦。再长一下</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 明确拒绝17岁。</li></ul></div></div></div></div>
-    <div id="modal-22" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-22')">&times;</span><div class="modal-content-inner"><h2>高薪普工(走路靠右)</h2><div class="source-tag">来源: 加急吧-走路靠右（暑假工和未满十八勿扰）</div><h3>招聘信息原文</h3><pre>🔥薪资:28/小时 336/天，每个月保底8000元!</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 对方昵称已写明“未满十八勿扰”。</li><li class="con"><strong>薪资虚高：</strong> 28元/小时对于普工岗位是极不真实的，属于典型的虚假宣传，引流手段。</li><li class="neutral"><strong>行动建议：</strong> 直接忽略，高概率是骗局。</li></ul></div></div></div></div>
-    <div id="modal-23" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-23')">&times;</span><div class="modal-content-inner"><h2>蔡家汽配厂</h2><div class="source-tag">来源: 中介-独角兽🦄</div><h3>招聘信息原文</h3><pre>蔡家20一小时包吃包住，月入6000+去不嘛，手上活</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 你询问16/17岁是否可以，对方没有正面回答，而是直接拉你进群，说明该岗位大概率不招。</li><li class="con"><strong>薪资偏高：</strong> 20元/小时且包吃包住，真实性有待考证。</li></ul></div></div></div></div>
-    <div id="modal-24" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-24')">&times;</span><div class="modal-content-inner"><h2>北碚日结/周结质检</h2><div class="source-tag">来源: 中介-Hyh_</div><h3>招聘信息原文</h3><pre>💰💰薪资待遇：18/小时 月综合工资：5000+
-...
-岗位：质检，18-45岁，男女不限
-</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 明确要求18-45岁。</li></ul></div></div></div></div>
+当天结算工资💰💰</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>风险极高：</strong> 本质是利用你的身份信息办电话卡冲业绩。</li><li class="con"><strong>信息安全隐患：</strong> 电话卡可能被用于非法活动，后患无穷。</li><li class="con"><strong>销户困难：</strong> 群友经验表明“办了不好销哦”，很难按时免费注销。</li><li class="con"><strong>涉嫌违法：</strong> 群友明确指出“这TM是给诈骗犯提供电话卡，被抓到了直接包吃住”。</li><li class="neutral"><strong>行动建议：</strong> **绝对不要参与！** 为了一点小钱出卖个人信息，风险和收益完全不成正比。</li></ul></div></div></div></div>
+    <div id="modal-17" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-17')">×</span><div class="modal-content-inner"><h2>传音科技小时工</h2><div class="source-tag">来源: 中介-AN00-劳大, 中介-独角兽🦄</div><h3>招聘信息原文</h3><pre>中介-AN00-劳大: 现在是没招学生工哈 招小时工要20岁
+中介-独角兽🦄: 小时工 同工同酬没招</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄严重不符：</strong> 多名中介确认，小时工岗要求20岁或以上。</li><li class="neutral"><strong>关键信息：</strong> 这条信息帮你区分了传音的“学生工”和“小时工”是两码事，避免你被高时薪的小时工信息误导。</li></ul></div></div></div></div>
+    <div id="modal-18" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-18')">×</span><div class="modal-content-inner"><h2>电影检票员</h2><div class="source-tag">来源: 中介-招聘科____吕主管</div><h3>招聘信息原文</h3><pre>１７不行　需要１８　　１７　只能进厂了</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 明确拒绝17岁，要求18岁。</li></ul></div></div></div></div>
+    <div id="modal-19" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-19')">×</span><div class="modal-content-inner"><h2>蔡家汽配厂</h2><div class="source-tag">来源: 中介-独角兽🦄</div><h3>招聘信息原文</h3><pre>蔡家20一小时包吃包住，月入6000+去不嘛，手上活</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 你询问16/17岁是否可以，对方没有正面回答，而是直接拉你进群，说明该岗位大概率不招。</li></ul></div></div></div></div>
+    <div id="modal-20" class="modal"><div class="modal-content"><span class="close-button" onclick="closeModal('modal-20')">×</span><div class="modal-content-inner"><h2>高薪普工(走路靠右)</h2><div class="source-tag">来源: 加急吧-走路靠右（暑假工和未满十八勿扰）</div><h3>招聘信息原文</h3><pre>🔥薪资:28/小时 336/天，每个月保底8000元!</pre><h3>综合分析</h3><div class="analysis"><ul><li class="con"><strong>年龄不符：</strong> 对方昵称已写明“未满十八勿扰”。</li><li class="con"><strong>薪资虚假：</strong> 28元/小时对于普工岗位是极不真实的，是典型的虚假宣传引流手段。</li></ul></div></div></div></div>
 
 
 </body>
@@ -1087,7 +650,6 @@
         document.getElementById(modalId).style.display = 'none';
     }
 
-    // Close modal when clicking outside of the content
     window.onclick = function(event) {
         if (event.target.classList.contains('modal')) {
             event.target.style.display = 'none';
